@@ -3,106 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart JSON Quiz Maker ✨</title>
+    <title>JSON Quiz - Modern Edition</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
-        :root { --primary: #6366f1; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { width: 100%; max-width: 600px; background: var(--card); padding: 2rem; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        h1 { font-size: 1.5rem; color: var(--primary); text-align: center; margin-bottom: 2rem; }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0; padding: 0;
+            background-color: #f3f4f6; /* 연한 회색 배경 */
+            color: #333;
+        }
+
+        /* 상단 네비게이션 바 */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 25px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .navbar h1 { margin: 0; font-size: 1.2rem; color: #111; }
+        .nav-links a { color: #666; text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
+
+        /* 메인 컨텐츠 영역 (원본 구성 그대로) */
+        .main-container {
+            display: flex; flex-wrap: wrap; gap: 20px; padding: 25px;
+            max-width: 1200px; margin: 0 auto;
+        }
+
+        /* 왼쪽 설정창 */
+        .setup-panel {
+            flex: 1; min-width: 300px;
+            background: white; padding: 20px; border-radius: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .setup-panel h2 { font-size: 1rem; margin-top: 0; border-bottom: 2px solid #6366f1; padding-bottom: 8px; display: inline-block; }
+
+        /* 오른쪽 퀴즈창 */
+        .quiz-panel {
+            flex: 2; min-width: 400px;
+            background: white; padding: 20px; border-radius: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        textarea {
+            width: 100%; height: 200px; margin: 10px 0;
+            border: 1px solid #d1d5db; border-radius: 10px; padding: 12px;
+            font-family: 'Courier New', monospace; font-size: 0.85rem; outline: none;
+        }
+        textarea:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        .btn {
+            padding: 12px; border: none; border-radius: 8px; font-weight: 600;
+            cursor: pointer; transition: 0.2s; font-family: inherit;
+        }
+        .btn-primary { background-color: #6366f1; color: white; }
+        .btn-secondary { background-color: #e5e7eb; color: #374151; }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* 퀴즈 문항 디자인 */
+        .quiz-card { border: 1px solid #f0f0f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .question-text { font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; }
+        .choice-list { list-style: none; padding: 0; }
+        .choice-item { 
+            padding: 12px 15px; border: 1px solid #e5e7eb; border-radius: 8px; 
+            margin-bottom: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .choice-item:hover { background-color: #f8fafc; border-color: #6366f1; }
         
-        /* 설정 영역 */
-        .setup-section { background: #f1f5f9; padding: 1.5rem; border-radius: 16px; margin-bottom: 2rem; }
-        textarea { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; margin-top: 10px; font-family: monospace; box-sizing: border-box; }
-        
-        /* 퀴즈 아이템 */
-        .quiz-item { background: #fff; border: 1px solid #e2e8f0; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; transition: transform 0.2s; }
-        .quiz-item:hover { transform: translateY(-2px); border-color: var(--primary); }
-        .question { font-weight: 600; margin-bottom: 1rem; }
-        
-        /* 버튼 스타일 */
-        .btn { width: 100%; padding: 12px; border-radius: 12px; border: none; cursor: pointer; font-weight: 600; font-family: inherit; transition: 0.2s; margin-top: 8px; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-secondary { background: #e2e8f0; color: var(--text); }
-        .btn:hover { opacity: 0.9; }
-        
-        .choice-btn { display: block; width: 100%; text-align: left; padding: 10px; margin: 5px 0; border: 1px solid #e2e8f0; border-radius: 8px; background: white; cursor: pointer; }
-        .choice-btn:hover { background: #f8fafc; border-color: var(--primary); }
-        
-        .exp { margin-top: 10px; padding: 10px; background: #eef2ff; border-radius: 8px; color: var(--primary); font-size: 0.9rem; display: none; }
+        .answer-input { 
+            width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; 
+            margin-bottom: 10px; font-size: 1rem;
+        }
+
+        .explanation { 
+            background: #fdf2f2; color: #9b1c1c; padding: 12px; 
+            border-radius: 8px; margin-top: 10px; display: none; font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🧪 Smart Quiz Maker</h1>
+<nav class="navbar">
+    <h1>JSON Quiz Maker</h1>
+    <div class="nav-links">
+        <a href="#">Setup</a>
+        <a href="#">About</a>
+    </div>
+</nav>
 
-    <div class="setup-section">
-        <label><strong>JSON 데이터 입력</strong></label>
-        <textarea id="jsonInput" rows="5" placeholder='[{ "type": "multiple", "question": "질문", ... }]'></textarea>
-        <button class="btn btn-primary" onclick="loadJSON()">데이터 불러오기 / 시작하기</button>
-        <button class="btn btn-secondary" style="margin-top: 10px;" onclick="saveToLocal()">현재 세트 내 브라우저에 저장</button>
+<div class="main-container">
+    <div class="setup-panel">
+        <h2>Settings</h2>
+        <textarea id="jsonInput" placeholder='JSON 데이터를 여기에 입력하세요...'></textarea>
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="loadQuiz()">퀴즈 불러오기</button>
+            <button class="btn btn-secondary" onclick="saveToLocal()">현재 세트 저장</button>
+        </div>
+        <p style="font-size: 0.8rem; color: #888; margin-top: 15px;">* 로컬스토리지에 자동 저장됩니다.</p>
     </div>
 
-    <div id="quiz-display"></div>
+    <div class="quiz-panel" id="quizDisplay">
+        <div style="color: #bbb; text-align: center; margin-top: 100px;">
+            왼쪽에서 JSON을 입력하고 <br> [퀴즈 불러오기]를 눌러주세요.
+        </div>
+    </div>
 </div>
 
 <script>
-    let quizzes = [];
+    let currentData = [];
 
-    // 로컬 스토리지에서 기존 데이터 불러오기
+    // 페이지 로드 시 저장된 데이터 불러오기
     window.onload = () => {
-        const saved = localStorage.getItem('my-quiz-set');
-        if (saved) {
+        const saved = localStorage.getItem('user_quiz_json');
+        if(saved) {
             document.getElementById('jsonInput').value = saved;
-            loadJSON();
+            loadQuiz();
         }
     };
 
-    function loadJSON() {
+    function loadQuiz() {
+        const input = document.getElementById('jsonInput').value;
         try {
-            const input = document.getElementById('jsonInput').value;
-            quizzes = JSON.parse(input);
-            renderQuizzes();
-        } catch (e) {
-            alert("JSON 형식이 올바르지 않습니다! 다시 확인해주세요.");
+            currentData = JSON.parse(input);
+            renderQuiz();
+        } catch(e) {
+            alert("JSON 형식이 맞지 않습니다!");
         }
     }
 
     function saveToLocal() {
         const input = document.getElementById('jsonInput').value;
-        localStorage.setItem('my-quiz-set', input);
-        alert("브라우저에 저장되었습니다! 💾");
+        localStorage.setItem('user_quiz_json', input);
+        alert("저장되었습니다! 💾");
     }
 
-    function renderQuizzes() {
-        const display = document.getElementById('quiz-display');
+    function renderQuiz() {
+        const display = document.getElementById('quizDisplay');
         display.innerHTML = '';
 
-        quizzes.forEach((q, i) => {
-            const div = document.createElement('div');
-            div.className = 'quiz-item';
-            let content = `<div class="question">${i+1}. ${q.question}</div>`;
+        currentData.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            
+            let html = `<div class="question-text">${idx + 1}. ${q.question}</div>`;
 
-            if (q.type === 'multiple') {
+            if(q.type === 'multiple') {
+                html += `<div class="choice-list">`;
                 q.choices.forEach((c, cIdx) => {
-                    content += `<button class="choice-btn" onclick="checkAnswer(${i}, ${cIdx})">${c}</button>`;
+                    html += `<div class="choice-item" onclick="checkAnswer(${idx}, ${cIdx})">${c}</div>`;
                 });
+                html += `</div>`;
             } else {
-                content += `<input type="text" id="ans-${i}" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" placeholder="답을 입력하고 엔터" onkeypress="if(event.keyCode==13) checkAnswer(${i}, this.value)">`;
+                html += `<input type="text" class="answer-input" placeholder="답을 입력하고 Enter" onkeypress="if(event.keyCode==13) checkAnswer(${idx}, this.value)">`;
             }
 
-            content += `<div id="exp-${i}" class="exp">💡 해설: ${q.explanation}</div>`;
-            div.innerHTML = content;
-            display.appendChild(div);
+            html += `<div id="exp-${idx}" class="explanation"><strong>해설:</strong> ${q.explanation}</div>`;
+            card.innerHTML = html;
+            display.appendChild(card);
         });
     }
 
     function checkAnswer(idx, userAns) {
-        const q = quizzes[idx];
+        const q = currentData[idx];
         const isCorrect = (q.type === 'multiple') ? (userAns === q.answer) : (userAns.trim() === q.answer.toString().trim());
         
-        alert(isCorrect ? "정답입니다! 🎉" : "틀렸습니다. 다시 풀어보세요! ✍️");
+        if(isCorrect) alert("정답입니다! 🎉");
+        else alert("틀렸습니다! ✍️");
+        
         document.getElementById(`exp-${idx}`).style.display = 'block';
     }
 </script>
