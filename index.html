@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌸 JSON Quiz 🌸</title>
+<title>🌸 JSON yama 🌸</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<!-- LZ-String: 압축 기반 URL 공유 -->
+<script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
 <style>
 :root {
   --bg:       #fff8f5;
@@ -53,18 +55,15 @@ body {
 .page { display:none; }
 .page.active { display:block; }
 
-/* ══ LAYOUT ══ */
 .wrap { max-width:680px; margin:0 auto; padding:40px 20px 80px; }
 .wrap-md { max-width:660px; margin:0 auto; padding:28px 20px 80px; }
 
-/* ══ SITE HEADER ══ */
 .site-header { text-align:center; margin-bottom:28px; animation:bounceIn .6s cubic-bezier(.34,1.56,.64,1); }
 @keyframes bounceIn { from{opacity:0;transform:scale(.8) translateY(-16px)} to{opacity:1;transform:scale(1) translateY(0)} }
 .site-emoji { font-size:52px; display:block; margin-bottom:6px; filter:drop-shadow(0 4px 8px rgba(255,126,179,.3)); }
 .site-title { font-family:'Fredoka',sans-serif; font-size:32px; font-weight:700; color:var(--pink); letter-spacing:.02em; display:block; }
 .site-sub   { font-size:13px; color:var(--ink3); font-weight:600; letter-spacing:.06em; margin-top:2px; }
 
-/* ══ SECTION CARD ══ */
 .section-card { background:var(--surface); border:2px solid var(--line); border-radius:20px; padding:24px; margin-bottom:16px; box-shadow:var(--shadow); }
 .section-head { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
 .section-icon { font-size:22px; width:40px; height:40px; border-radius:12px; background:var(--pink-l); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -72,12 +71,10 @@ body {
 .section-desc { font-size:13px; color:var(--ink2); margin-bottom:14px; line-height:1.65; }
 code { font-size:12px; background:var(--lemon-l); color:#8a6000; border-radius:5px; padding:1px 6px; }
 
-/* ══ TEXTAREA ══ */
 textarea#json-input { width:100%; height:180px; background:var(--bg); border:2px solid var(--line); border-radius:var(--r-sm); padding:14px; font-family:'Nunito',monospace; font-size:12.5px; color:var(--ink); resize:vertical; outline:none; transition:border-color .15s,box-shadow .15s; line-height:1.7; }
 textarea#json-input:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,126,179,.15); }
 textarea#json-input::placeholder { color:var(--ink3); }
 
-/* ══ BUTTONS ══ */
 .btn-row-sm { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
 .btn { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:99px; border:2px solid var(--line2); background:var(--surface); color:var(--ink2); font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:all .15s; white-space:nowrap; }
 .btn:hover { border-color:var(--pink); color:var(--pink); transform:translateY(-1px); box-shadow:0 4px 12px rgba(255,126,179,.2); }
@@ -90,14 +87,14 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .btn-ghost { background:transparent; border-color:transparent; color:var(--ink3); padding:9px 12px; }
 .btn-ghost:hover { background:var(--pink-l); color:var(--pink); border-color:transparent; box-shadow:none; }
 .btn-start { width:100%; padding:16px; font-size:16px; font-family:'Fredoka',sans-serif; font-weight:600; letter-spacing:.04em; border-radius:16px; margin-top:4px; }
+.btn-share { background:linear-gradient(135deg,var(--lavender),var(--sky)); color:#fff; border-color:transparent; box-shadow:0 4px 16px rgba(195,168,245,.4); }
+.btn-share:hover { opacity:.9; color:#fff; border-color:transparent; }
 
-/* ══ OPTIONS ROW ══ */
 .options-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
 .opt-toggle { display:flex; align-items:center; gap:6px; padding:9px 14px; border-radius:12px; border:2px solid var(--line); background:var(--bg); cursor:pointer; font-size:13px; font-weight:700; color:var(--ink2); transition:all .15s; user-select:none; }
 .opt-toggle:hover { border-color:var(--pink); color:var(--pink); background:var(--pink-l); }
 .opt-toggle.on { border-color:var(--pink); background:var(--pink-l); color:var(--pink-d); }
 
-/* ══ SAVED LIST ══ */
 .saved-label { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:var(--ink3); margin-bottom:10px; }
 .saved-list { display:flex; flex-direction:column; gap:7px; }
 .saved-item { display:flex; align-items:center; padding:12px 14px; border-radius:var(--r-sm); border:2px solid var(--line); background:var(--bg); cursor:pointer; gap:8px; transition:all .15s; }
@@ -107,11 +104,26 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .s-count { font-size:11.5px; font-weight:700; color:var(--pink); background:var(--pink-l); border-radius:99px; padding:2px 9px; }
 .s-best  { font-size:11.5px; font-weight:700; color:var(--mint-d); background:var(--mint-l); border-radius:99px; padding:2px 9px; }
 .s-plays { font-size:11px; color:var(--ink3); font-weight:600; }
+.s-share { font-size:14px; cursor:pointer; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .12s; flex-shrink:0; color:var(--ink3); }
+.s-share:hover { color:var(--lavender); background:var(--lav-l); }
 .s-del   { font-size:18px; color:var(--ink3); cursor:pointer; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .12s; flex-shrink:0; }
 .s-del:hover { color:var(--red); background:var(--red-l); }
 .empty-note { font-size:13px; color:var(--ink3); font-style:italic; text-align:center; padding:16px 0; }
 
-/* ══ MODE SELECTOR ══ */
+/* 공유 배너 */
+.share-banner { background:linear-gradient(135deg,var(--lav-l),var(--sky-l)); border:2px solid var(--lavender); border-radius:16px; padding:16px 20px; margin-bottom:16px; display:flex; align-items:center; gap:12px; animation:bounceIn .4s cubic-bezier(.34,1.4,.64,1); }
+.share-banner-icon { font-size:28px; }
+.share-banner-text { flex:1; }
+.share-banner-title { font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600; color:var(--ink); margin-bottom:2px; }
+.share-banner-sub { font-size:12.5px; color:var(--ink2); font-weight:600; }
+.share-banner-btns { display:flex; gap:6px; flex-shrink:0; }
+
+/* URL 길이 상태 */
+.url-status { display:flex; align-items:center; gap:6px; margin-top:8px; font-size:12px; font-weight:700; padding:8px 12px; border-radius:10px; }
+.url-status.ok   { background:var(--mint-l); color:var(--mint-d); }
+.url-status.warn { background:var(--lemon-l); color:#8a6000; }
+.url-status.bad  { background:var(--red-l); color:var(--red); }
+
 .mode-group { display:flex; gap:10px; }
 .mode-opt { flex:1; padding:14px 16px; border-radius:14px; border:2px solid var(--line); background:var(--bg); cursor:pointer; transition:all .15s; text-align:left; }
 .mode-opt:hover { border-color:var(--pink); background:var(--pink-l); }
@@ -122,7 +134,6 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .mode-opt.selected .mode-title { color:var(--pink-d); }
 .mode-opt.selected .mode-sub   { color:var(--pink); }
 
-/* ══ IMAGE UPLOAD ══ */
 #img-drop-zone { border:2.5px dashed var(--line2); border-radius:14px; padding:26px 20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--bg); margin-bottom:12px; }
 #img-drop-zone:hover, #img-drop-zone.drag-over { border-color:var(--pink); background:var(--pink-l); }
 .drop-icon { font-size:30px; margin-bottom:6px; }
@@ -135,14 +146,12 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .chip-del { font-size:14px; color:var(--ink3); cursor:pointer; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .12s; }
 .chip-del:hover { background:var(--red-l); color:var(--red); }
 
-/* ══ QUIZ HEADER ══ */
 .quiz-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
 .quiz-set-name { font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600; color:var(--pink-d); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .quiz-counter  { font-size:13px; font-weight:800; color:var(--ink3); background:var(--surface); border:2px solid var(--line); border-radius:99px; padding:3px 12px; flex-shrink:0; }
 .progress-track { height:8px; background:var(--line); border-radius:99px; margin-bottom:20px; overflow:hidden; }
 .progress-fill  { height:100%; background:linear-gradient(90deg,var(--pink),var(--coral)); border-radius:99px; transition:width .4s cubic-bezier(.4,0,.2,1); }
 
-/* ══ QUESTION CARD ══ */
 .q-card { background:var(--surface); border:2px solid var(--line); border-radius:22px; padding:28px; margin-bottom:14px; box-shadow:var(--shadow); animation:slideUp .28s cubic-bezier(.34,1.3,.64,1); }
 @keyframes slideUp { from{opacity:0;transform:translateY(16px) scale(.98)} to{opacity:1;transform:translateY(0) scale(1)} }
 .q-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; gap:8px; }
@@ -150,16 +159,14 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .q-num  { font-family:'Fredoka',sans-serif; font-size:13px; font-weight:600; color:#fff; background:linear-gradient(135deg,var(--pink),var(--coral)); border-radius:99px; padding:3px 12px; box-shadow:0 2px 8px rgba(255,126,179,.35); }
 .q-type { font-size:12px; font-weight:700; color:var(--ink3); background:var(--bg2); border-radius:99px; padding:3px 10px; border:2px solid var(--line); }
 
-/* ── BOOKMARK ── */
 .bookmark-btn { font-size:22px; cursor:pointer; transition:transform .2s cubic-bezier(.34,1.56,.64,1); line-height:1; user-select:none; opacity:.4; }
 .bookmark-btn:hover { transform:scale(1.2); opacity:.8; }
 .bookmark-btn.active { opacity:1; animation:bookmarkPop .3s cubic-bezier(.34,1.56,.64,1); }
 @keyframes bookmarkPop { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
 
-.q-text  { font-size:16px; font-weight:700; line-height:1.7; color:var(--ink); margin-bottom:20px; }
+.q-text  { font-size:16px; font-weight:700; line-height:1.7; color:var(--ink); margin-bottom:20px; white-space:pre-wrap; }
 .q-image { width:100%; max-height:240px; object-fit:contain; border-radius:12px; border:2px solid var(--line); background:var(--bg); margin-bottom:20px; padding:10px; display:block; }
 
-/* ── CHOICES ── */
 .choices { display:flex; flex-direction:column; gap:9px; }
 .choice  { display:flex; align-items:flex-start; gap:12px; padding:13px 16px; border-radius:14px; border:2.5px solid var(--line); background:var(--bg); cursor:pointer; transition:all .15s cubic-bezier(.34,1.2,.64,1); user-select:none; position:relative; overflow:hidden; }
 .choice::before { content:''; position:absolute; left:0;top:0;bottom:0; width:4px; background:var(--pink); border-radius:4px 0 0 4px; transform:scaleY(0); transition:transform .15s; }
@@ -182,13 +189,11 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .choice.reveal   .choice-idx { border-color:var(--mint); color:var(--mint-d); background:var(--mint-l); }
 .choice-text { font-size:14.5px; font-weight:600; line-height:1.55; color:var(--ink); padding-top:4px; }
 
-/* ── TEXT INPUT ── */
 .text-input { width:100%; border:2.5px solid var(--line); border-radius:12px; padding:13px 15px; font-family:'Nunito',sans-serif; font-size:15px; font-weight:600; color:var(--ink); background:var(--bg); outline:none; transition:all .15s; resize:none; }
 .text-input:focus { border-color:var(--pink); background:var(--surface); box-shadow:0 0 0 3px rgba(255,126,179,.15); }
 .text-input.correct-border { border-color:var(--mint); background:var(--mint-l); }
 .text-input.wrong-border   { border-color:var(--red);  background:var(--red-l); }
 
-/* ── FEEDBACK ── */
 .feedback { display:none; margin-top:14px; padding:14px 18px; border-radius:14px; border:2px solid; font-size:14px; font-weight:600; line-height:1.6; animation:bounceIn .3s cubic-bezier(.34,1.4,.64,1); }
 .feedback.show { display:block; }
 .feedback.correct-fb { background:var(--mint-l); border-color:rgba(78,203,160,.4); color:var(--mint-d); }
@@ -196,10 +201,8 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .feedback.review-fb  { background:var(--lemon-l);border-color:rgba(255,209,102,.5);  color:#8a6a00; }
 .feedback .ans-reveal { margin-top:8px; font-size:13px; opacity:.85; font-weight:600; }
 
-/* ── Q ACTIONS ── */
 .q-actions { display:flex; justify-content:flex-end; align-items:center; gap:10px; }
 
-/* ── BOOKMARKS PANEL (side drawer) ── */
 .bm-fab { position:fixed; right:20px; bottom:80px; width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,var(--amber),var(--coral)); box-shadow:0 4px 16px rgba(255,179,71,.4); display:flex; align-items:center; justify-content:center; font-size:20px; cursor:pointer; z-index:50; transition:transform .2s; }
 .bm-fab:hover { transform:scale(1.1); }
 .bm-fab .bm-badge { position:absolute; top:-4px; right:-4px; background:var(--pink); color:#fff; font-size:10px; font-weight:800; border-radius:99px; padding:1px 5px; min-width:18px; text-align:center; display:none; }
@@ -219,7 +222,6 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .bm-item-del  { font-size:13px; color:var(--ink3); cursor:pointer; margin-left:auto; }
 .bm-item-del:hover { color:var(--red); }
 
-/* ══ RESULT PAGE ══ */
 .result-card { background:var(--surface); border:2px solid var(--line); border-radius:24px; padding:36px 30px; box-shadow:var(--shadow-lg); animation:bounceIn .5s cubic-bezier(.34,1.3,.64,1); }
 .score-emoji { font-size:56px; display:block; margin-bottom:8px; filter:drop-shadow(0 4px 8px rgba(255,126,179,.25)); }
 .score-frac  { font-family:'Fredoka',sans-serif; font-size:58px; font-weight:700; line-height:1; color:var(--pink); margin-bottom:4px; }
@@ -228,7 +230,6 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .result-msg  { font-family:'Fredoka',sans-serif; font-size:24px; font-weight:600; color:var(--ink); margin-bottom:4px; }
 .result-sub  { font-size:13.5px; color:var(--ink3); font-weight:600; margin-bottom:24px; }
 
-/* ── HISTORY DOTS ── */
 .history-wrap  { margin-bottom:24px; }
 .history-label { font-size:11px; font-weight:800; color:var(--ink3); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
 .history-strip { display:flex; gap:6px; flex-wrap:wrap; }
@@ -237,7 +238,6 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .h-dot.err { background:var(--red-l);  color:var(--red);    border-color:var(--red); }
 .h-dot[title]:hover::after { content:attr(title); position:absolute; bottom:110%; left:50%; transform:translateX(-50%); background:var(--ink); color:#fff; font-size:11px; font-weight:600; padding:4px 8px; border-radius:6px; white-space:nowrap; pointer-events:none; z-index:10; }
 
-/* ── REVIEW GRID ── */
 .review-grid { display:flex; flex-direction:column; gap:7px; margin-bottom:24px; text-align:left; }
 .rv-item { display:flex; align-items:center; gap:10px; padding:11px 14px; border-radius:12px; background:var(--bg); border:2px solid var(--line); font-size:13px; font-weight:600; transition:transform .12s; }
 .rv-item:hover { transform:translateX(3px); }
@@ -254,7 +254,6 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .rv-tag.neutral { background:var(--bg2);    color:var(--ink3); }
 .result-btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
 
-/* ══ MODALS ══ */
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(61,44,44,.35); backdrop-filter:blur(4px); z-index:100; align-items:center; justify-content:center; padding:20px; }
 .modal-overlay.open { display:flex; }
 .modal { background:var(--surface); border-radius:20px; max-width:600px; width:100%; max-height:82vh; overflow-y:auto; padding:28px; box-shadow:0 20px 60px rgba(255,126,179,.2),0 4px 20px rgba(0,0,0,.1); animation:popIn .22s cubic-bezier(.34,1.56,.64,1); border:2px solid var(--line); }
@@ -270,7 +269,10 @@ textarea#json-input::placeholder { color:var(--ink3); }
 .modal input { width:100%; border:2.5px solid var(--line); border-radius:10px; padding:11px 14px; font-family:'Nunito',sans-serif; font-size:14.5px; font-weight:600; color:var(--ink); outline:none; margin-bottom:14px; background:var(--bg); transition:all .15s; }
 .modal input:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,126,179,.15); }
 
-/* ══ TOAST ══ */
+/* 공유 모달 */
+#share-modal .share-url-box { background:var(--bg); border:2px solid var(--line); border-radius:12px; padding:12px 14px; font-family:monospace; font-size:12px; color:var(--ink2); word-break:break-all; line-height:1.6; margin-bottom:12px; max-height:100px; overflow-y:auto; }
+#share-modal .share-actions { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+
 .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--ink); color:#fff; font-family:'Nunito',sans-serif; font-size:13.5px; font-weight:700; padding:11px 22px; border-radius:99px; box-shadow:0 6px 24px rgba(0,0,0,.2); transition:transform .28s cubic-bezier(.34,1.3,.64,1),opacity .25s; opacity:0; pointer-events:none; z-index:200; white-space:nowrap; }
 .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
@@ -287,13 +289,25 @@ textarea#json-input::placeholder { color:var(--ink3); }
 <!-- ══ SETUP PAGE ══ -->
 <div id="pg-setup" class="page active">
 <div class="wrap">
+
+  <!-- 공유 링크로 접속 시 배너 -->
+  <div id="share-banner" style="display:none" class="share-banner">
+    <div class="share-banner-icon">🔗</div>
+    <div class="share-banner-text">
+      <div class="share-banner-title">공유된 문제 세트예요!</div>
+      <div class="share-banner-sub" id="share-banner-sub">세트를 저장하면 나중에도 쓸 수 있어요</div>
+    </div>
+    <div class="share-banner-btns">
+      <button class="btn btn-accent" onclick="saveSharedSet()" style="padding:8px 14px;font-size:12px">💾 저장</button>
+    </div>
+  </div>
+
   <div class="site-header">
     <span class="site-emoji">🌸</span>
     <span class="site-title">JSON Quiz</span>
     <div class="site-sub">paste · play · repeat ✨</div>
   </div>
 
-  <!-- JSON input -->
   <div class="section-card">
     <div class="section-head">
       <div class="section-icon">📝</div>
@@ -313,10 +327,10 @@ textarea#json-input::placeholder { color:var(--ink3); }
       <button class="btn" onclick="openGuide()">📋 JSON 형식 가이드</button>
       <button class="btn" onclick="copyExample()">📎 예시 JSON 복사</button>
       <button class="btn btn-accent" onclick="openSaveModal()">💾 세트 저장</button>
+      <button class="btn btn-share" onclick="shareCurrentJSON()">🔗 링크로 공유</button>
     </div>
   </div>
 
-  <!-- Image upload -->
   <div class="section-card">
     <div class="section-head">
       <div class="section-icon">🖼️</div>
@@ -332,7 +346,6 @@ textarea#json-input::placeholder { color:var(--ink3); }
     <div id="img-preview-list"></div>
   </div>
 
-  <!-- Saved sets -->
   <div class="section-card">
     <div class="section-head">
       <div class="section-icon">📚</div>
@@ -341,7 +354,6 @@ textarea#json-input::placeholder { color:var(--ink3); }
     <div class="saved-list" id="saved-list"></div>
   </div>
 
-  <!-- Options + mode + start -->
   <div class="section-card">
     <div class="section-head">
       <div class="section-icon">⚙️</div>
@@ -350,10 +362,10 @@ textarea#json-input::placeholder { color:var(--ink3); }
 
     <p class="section-desc" style="margin-bottom:10px">문제 순서</p>
     <div class="options-row" style="margin-bottom:18px">
-      <div class="opt-toggle on" id="tog-order-seq" onclick="setOrder('seq')">📋 처음부터 순서대로</div>
-      <div class="opt-toggle"   id="tog-order-rand" onclick="setOrder('rand')">🔀 랜덤 순서</div>
-      <div class="opt-toggle"   id="tog-order-wrong" onclick="setOrder('wrong')">❌ 오답만 모아서</div>
-      <div class="opt-toggle"   id="tog-order-bm" onclick="setOrder('bm')">🔖 북마크만</div>
+      <div class="opt-toggle on"  id="tog-order-seq"   onclick="setOrder('seq')">📋 처음부터 순서대로</div>
+      <div class="opt-toggle"     id="tog-order-rand"  onclick="setOrder('rand')">🔀 랜덤 순서</div>
+      <div class="opt-toggle"     id="tog-order-wrong" onclick="setOrder('wrong')">❌ 오답만 모아서</div>
+      <div class="opt-toggle"     id="tog-order-bm"    onclick="setOrder('bm')">🔖 북마크만</div>
     </div>
 
     <p class="section-desc" style="margin-bottom:10px">채점 방식</p>
@@ -401,14 +413,12 @@ textarea#json-input::placeholder { color:var(--ink3); }
   </div>
 
   <div class="q-actions">
-    <button class="btn btn-ghost"    onclick="goSetup()">← 처음으로</button>
-    <button class="btn btn-primary"  id="btn-submit" onclick="submitAnswer()">제출 ✓</button>
-    <button class="btn btn-primary"  id="btn-next"   onclick="nextQ()" style="display:none">다음 →</button>
-    <button class="btn btn-accent"   id="btn-result" onclick="showResult()" style="display:none">결과 🎉</button>
+    <button class="btn btn-ghost"   onclick="goSetup()">← 처음으로</button>
+    <button class="btn btn-primary" id="btn-submit" onclick="submitAnswer()">제출 ✓</button>
+    <button class="btn btn-primary" id="btn-next"   onclick="nextQ()" style="display:none">다음 →</button>
+    <button class="btn btn-accent"  id="btn-result" onclick="showResult()" style="display:none">결과 🎉</button>
   </div>
 </div>
-
-<!-- bookmark FAB -->
 <div class="bm-fab" onclick="toggleBmPanel()" title="북마크 목록">
   🔖<span class="bm-badge" id="bm-fab-badge"></span>
 </div>
@@ -423,19 +433,16 @@ textarea#json-input::placeholder { color:var(--ink3); }
     <div class="score-pct"  id="score-pct"></div>
     <div class="result-msg" id="result-msg"></div>
     <div class="result-sub" id="result-sub"></div>
-
-    <!-- history dots -->
     <div class="history-wrap" id="history-wrap" style="display:none">
       <div class="history-label">📊 이전 풀이 기록</div>
       <div class="history-strip" id="history-strip"></div>
     </div>
-
-    <div class="review-grid"  id="review-grid"></div>
-
+    <div class="review-grid" id="review-grid"></div>
     <div class="result-btns">
       <button class="btn" id="btn-retry-wrong" onclick="retryWrong()">❌ 오답만 다시 풀기</button>
       <button class="btn" id="btn-retry-bm"    onclick="retryBookmarks()">🔖 북마크만 풀기</button>
       <button class="btn" onclick="retryAll()">🔄 전체 재테스트</button>
+      <button class="btn btn-share" onclick="shareCurrentSet()">🔗 이 세트 공유</button>
       <button class="btn btn-primary" onclick="goSetup()">🏠 처음으로</button>
     </div>
   </div>
@@ -504,6 +511,22 @@ textarea#json-input::placeholder { color:var(--ink3); }
   </div>
 </div>
 
+<!-- ══ SHARE MODAL ══ -->
+<div class="modal-overlay" id="share-modal" onclick="closeShareModal(event)">
+  <div class="modal" style="max-width:480px" id="share-modal-inner">
+    <button class="close-btn" onclick="closeShareModal()">✕ 닫기</button>
+    <h3>🔗 링크로 공유하기</h3>
+    <p id="share-modal-desc" style="margin-bottom:12px"></p>
+    <div class="share-url-box" id="share-url-box"></div>
+    <div id="share-url-status"></div>
+    <div class="share-actions">
+      <button class="btn btn-primary" onclick="copyShareUrl()">📋 링크 복사</button>
+      <button class="btn" onclick="closeShareModal()">닫기</button>
+    </div>
+    <p style="font-size:12px;color:var(--ink3);margin-top:4px">💡 링크를 열면 바로 퀴즈를 시작할 수 있어요. 서버 없이 URL 자체에 문제가 담겨있어요!</p>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -511,24 +534,26 @@ textarea#json-input::placeholder { color:var(--ink3); }
 //  CONSTANTS & STATE
 // ══════════════════════════════════════════════
 const LABELS = ['A','B','C','D','E','F','G','H'];
-const SK      = 'jq_saved_sets';   // localStorage key for sets
-const BK      = 'jq_bookmarks';    // localStorage key for bookmarks
+const SK = 'jq_saved_sets';
+const BK = 'jq_bookmarks';
 
 let questions    = [];
-let queueIdx     = [];   // indices into questions
+let queueIdx     = [];
 let curPos       = 0;
 let mode         = 'instant';
-let orderMode    = 'seq';   // 'seq' | 'rand' | 'wrong' | 'bm'
+let orderMode    = 'seq';
 let answered     = false;
 let results      = [];
 let setName      = '';
-let currentSetId = null;  // id of currently playing set (for history)
+let currentSetId = null;
+let wrongSet     = [];
 
-let savedSets    = JSON.parse(localStorage.getItem(SK) || '[]');
-let bookmarks    = JSON.parse(localStorage.getItem(BK) || '[]');
-// bookmarks: [{setId, qi, question, setName}]
-
+let savedSets      = JSON.parse(localStorage.getItem(SK) || '[]');
+let bookmarks      = JSON.parse(localStorage.getItem(BK) || '[]');
 let uploadedImages = {};
+
+// 현재 공유용 JSON (share modal에서 사용)
+let _shareJson = null;
 
 // ══════════════════════════════════════════════
 //  HELPERS
@@ -557,28 +582,126 @@ function escHtml(s) {
 }
 function shuffleArr(arr) {
   const a = [...arr];
-  for (let i = a.length-1; i > 0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
+  for (let i=a.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
   return a;
 }
 function saveSets() { localStorage.setItem(SK, JSON.stringify(savedSets)); }
 function saveBM()   { localStorage.setItem(BK, JSON.stringify(bookmarks)); }
 
 // ══════════════════════════════════════════════
-//  ORDER MODE
+//  🔗 LZ-STRING URL SHARE
 // ══════════════════════════════════════════════
-function setOrder(m) {
-  orderMode = m;
-  ['seq','rand','wrong','bm'].forEach(k => {
-    document.getElementById('tog-order-' + k).classList.toggle('on', k === m);
+function buildShareUrl(jsonStr, title) {
+  const payload = JSON.stringify({ title: title || '퀴즈', json: jsonStr });
+  const compressed = LZString.compressToEncodedURIComponent(payload);
+  return location.origin + location.pathname + '#q=' + compressed;
+}
+
+function openShareModal(jsonStr, title) {
+  _shareJson = jsonStr;
+  const url = buildShareUrl(jsonStr, title);
+  document.getElementById('share-url-box').textContent = url;
+
+  // URL 길이 상태
+  const len = url.length;
+  const statusEl = document.getElementById('share-url-status');
+  let cls, msg;
+  if (len < 2000)      { cls='ok';   msg='✅ URL 길이 '+len+'자 — 공유하기 좋아요!'; }
+  else if (len < 4000) { cls='warn'; msg='⚠️ URL 길이 '+len+'자 — 일부 앱에서 잘릴 수 있어요.'; }
+  else                 { cls='bad';  msg='❌ URL 길이 '+len+'자 — 너무 길어요. 이미지 제거를 권장해요.'; }
+  statusEl.innerHTML = '<div class="url-status '+cls+'">'+msg+'</div>';
+
+  const desc = document.getElementById('share-modal-desc');
+  desc.textContent = 'LZ 압축으로 '+JSON.stringify(JSON.parse(jsonStr)).length+'자 → '+
+    Math.round((LZString.compressToEncodedURIComponent(jsonStr).length / JSON.stringify(JSON.parse(jsonStr)).length)*100)+'% 크기로 줄였어요.';
+
+  document.getElementById('share-modal').classList.add('open');
+}
+
+function closeShareModal(e) {
+  if (!e || e.target===document.getElementById('share-modal'))
+    document.getElementById('share-modal').classList.remove('open');
+}
+
+function copyShareUrl() {
+  const url = document.getElementById('share-url-box').textContent;
+  navigator.clipboard.writeText(url).then(() => {
+    toast('🔗 링크가 복사되었습니다!');
+    closeShareModal();
   });
 }
 
+// Setup 페이지의 현재 JSON 공유
+function shareCurrentJSON() {
+  const raw = document.getElementById('json-input').value.trim();
+  if (!raw) { toast('💡 공유할 JSON이 없습니다.'); return; }
+  if (!parseJSON(raw)) return;
+  openShareModal(raw, '공유된 퀴즈');
+}
+
+// 결과 페이지 / 저장된 세트 공유
+function shareCurrentSet() {
+  if (!questions.length) return;
+  const raw = JSON.stringify(questions);
+  openShareModal(raw, setName);
+}
+
+function shareSavedSet(e, i) {
+  e.stopPropagation();
+  openShareModal(savedSets[i].json, savedSets[i].title);
+}
+
+// ── 공유 링크로 접속 시 자동 로드 ──
+function checkUrlShare() {
+  const hash = location.hash;
+  if (!hash.startsWith('#q=')) return;
+  try {
+    const compressed = hash.slice(3);
+    const raw = LZString.decompressFromEncodedURIComponent(compressed);
+    if (!raw) throw new Error('압축 해제 실패');
+    const payload = JSON.parse(raw);
+    const qs = parseJSON(payload.json);
+    if (!qs) return;
+
+    // textarea에 삽입
+    document.getElementById('json-input').value = payload.json;
+
+    // 배너 표시
+    const banner = document.getElementById('share-banner');
+    banner.style.display = 'flex';
+    document.getElementById('share-banner-sub').textContent =
+      (payload.title || '퀴즈') + ' · ' + qs.length + '문제';
+    banner.dataset.title = payload.title || '공유된 퀴즈';
+    banner.dataset.json  = payload.json;
+
+    // URL 정리 (history 오염 방지)
+    history.replaceState(null,'', location.pathname);
+    toast('🔗 공유된 문제 세트를 불러왔어요!');
+  } catch(e) {
+    console.error('share url parse error', e);
+  }
+}
+
+function saveSharedSet() {
+  const banner = document.getElementById('share-banner');
+  const raw    = banner.dataset.json;
+  const title  = banner.dataset.title || '공유된 퀴즈';
+  const qs = parseJSON(raw); if (!qs) return;
+  savedSets.unshift({ id: Date.now(), title, json: raw, count: qs.length, history: [] });
+  if (savedSets.length > 30) savedSets.pop();
+  saveSets(); renderSavedList();
+  banner.style.display = 'none';
+  toast('✅ 저장되었습니다!');
+}
+
 // ══════════════════════════════════════════════
-//  MODE (instant / end)
+//  ORDER / MODE
 // ══════════════════════════════════════════════
+function setOrder(m) {
+  orderMode = m;
+  ['seq','rand','wrong','bm'].forEach(k =>
+    document.getElementById('tog-order-'+k).classList.toggle('on', k===m));
+}
 function selectMode(m) {
   mode = m;
   document.getElementById('mode-instant').classList.toggle('selected', m==='instant');
@@ -613,21 +736,22 @@ function removeImage(name) { delete uploadedImages[name]; renderImageChips(); }
 })();
 
 // ══════════════════════════════════════════════
-//  SAVED SETS + HISTORY
+//  SAVED SETS
 // ══════════════════════════════════════════════
 function renderSavedList() {
   const el = document.getElementById('saved-list');
   if (!savedSets.length) { el.innerHTML = '<div class="empty-note">아직 저장된 세트가 없어요 🌱</div>'; return; }
   el.innerHTML = savedSets.map((s,i) => {
     const hist = s.history || [];
-    const best = hist.length ? Math.max(...hist.map(h => h.pct)) : null;
+    const best = hist.length ? Math.max(...hist.map(h=>h.pct)) : null;
     return `<div class="saved-item" onclick="loadSavedSet(${i})">
       <span class="s-title">${escHtml(s.title)}</span>
       <div class="s-meta">
         <span class="s-count">${s.count}문제</span>
-        ${best !== null ? `<span class="s-best">최고 ${best}%</span>` : ''}
-        ${hist.length ? `<span class="s-plays">${hist.length}회</span>` : ''}
-        <span class="s-del" onclick="deleteSavedSet(event,${i})" title="삭제">×</span>
+        ${best!==null?`<span class="s-best">최고 ${best}%</span>`:''}
+        ${hist.length?`<span class="s-plays">${hist.length}회</span>`:''}
+        <span class="s-share" onclick="shareSavedSet(event,${i})" title="공유">🔗</span>
+        <span class="s-del"   onclick="deleteSavedSet(event,${i})" title="삭제">×</span>
       </div>
     </div>`;
   }).join('');
@@ -636,7 +760,7 @@ function loadSavedSet(i) {
   document.getElementById('json-input').value = savedSets[i].json;
   toast('📂 불러왔습니다: ' + savedSets[i].title);
 }
-function deleteSavedSet(e, i) {
+function deleteSavedSet(e,i) {
   e.stopPropagation();
   if (!confirm('삭제할까요?')) return;
   savedSets.splice(i,1); saveSets(); renderSavedList(); toast('🗑️ 삭제되었습니다.');
@@ -656,20 +780,17 @@ function confirmSave() {
   const raw   = document.getElementById('json-input').value.trim();
   const title = document.getElementById('save-title-input').value.trim() || '세트 '+(savedSets.length+1);
   const qs = parseJSON(raw); if (!qs) return;
-  savedSets.unshift({ id: Date.now(), title, json: raw, count: qs.length, history: [] });
-  if (savedSets.length > 30) savedSets.pop();
+  savedSets.unshift({ id:Date.now(), title, json:raw, count:qs.length, history:[] });
+  if (savedSets.length>30) savedSets.pop();
   saveSets(); closeSaveModal(); renderSavedList(); toast('✅ 저장되었습니다!');
 }
-
-// Save play result into set history
 function recordHistory(setId, correct, total) {
   if (!setId) return;
-  const s = savedSets.find(s => s.id === setId);
-  if (!s) return;
-  if (!s.history) s.history = [];
-  const pct = total > 0 ? Math.round(correct/total*100) : 100;
-  s.history.push({ date: Date.now(), correct, total, pct });
-  if (s.history.length > 20) s.history.shift();
+  const s = savedSets.find(s=>s.id===setId); if (!s) return;
+  if (!s.history) s.history=[];
+  const pct = total>0 ? Math.round(correct/total*100) : 100;
+  s.history.push({ date:Date.now(), correct, total, pct });
+  if (s.history.length>20) s.history.shift();
   saveSets();
 }
 
@@ -677,49 +798,39 @@ function recordHistory(setId, correct, total) {
 //  BOOKMARKS
 // ══════════════════════════════════════════════
 function toggleBookmark() {
-  const qi     = queueIdx[curPos];
-  const q      = questions[qi];
-  const bmKey  = `${currentSetId}_${qi}`;
-  const idx    = bookmarks.findIndex(b => b.key === bmKey);
-  const btn    = document.getElementById('bookmark-btn');
-  if (idx >= 0) {
-    bookmarks.splice(idx,1);
-    btn.classList.remove('active');
-    btn.style.opacity = '.4';
-    toast('🔖 북마크 해제');
+  const qi    = queueIdx[curPos];
+  const q     = questions[qi];
+  const bmKey = `${currentSetId}_${qi}`;
+  const idx   = bookmarks.findIndex(b=>b.key===bmKey);
+  const btn   = document.getElementById('bookmark-btn');
+  if (idx>=0) {
+    bookmarks.splice(idx,1); btn.classList.remove('active'); btn.style.opacity='.4'; toast('북마크 해제');
   } else {
-    bookmarks.push({ key: bmKey, setId: currentSetId, qi, question: q.question, setName });
-    btn.classList.add('active');
-    btn.style.opacity = '1';
-    toast('🔖 북마크 추가!');
+    bookmarks.push({ key:bmKey, setId:currentSetId, qi, question:q.question, setName });
+    btn.classList.add('active'); btn.style.opacity='1'; toast('🔖 북마크 추가!');
   }
-  saveBM();
-  updateBmFab();
-  renderBmPanel();
+  saveBM(); updateBmFab(); renderBmPanel();
 }
-function isBookmarked(qi) {
-  return bookmarks.some(b => b.key === `${currentSetId}_${qi}`);
-}
+function isBookmarked(qi) { return bookmarks.some(b=>b.key===`${currentSetId}_${qi}`); }
 function updateBmFab() {
   const badge = document.getElementById('bm-fab-badge');
-  const n = bookmarks.filter(b => b.setId === currentSetId).length;
-  badge.textContent = n;
-  badge.classList.toggle('show', n > 0);
+  const n = bookmarks.filter(b=>b.setId===currentSetId).length;
+  badge.textContent = n; badge.classList.toggle('show', n>0);
 }
 function toggleBmPanel() {
   const panel = document.getElementById('bm-panel');
   const ov    = document.getElementById('bm-overlay');
   const open  = panel.classList.toggle('open');
-  ov.style.display = open ? 'block' : 'none';
+  ov.style.display = open?'block':'none';
   if (open) renderBmPanel();
 }
 function renderBmPanel() {
-  const el = document.getElementById('bm-list');
-  const bms = bookmarks.filter(b => b.setId === currentSetId);
-  if (!bms.length) { el.innerHTML = '<div class="bm-empty">북마크한 문제가 없어요<br>🔖 버튼을 눌러 추가해보세요!</div>'; return; }
-  el.innerHTML = bms.map((b,i) => `
+  const el  = document.getElementById('bm-list');
+  const bms = bookmarks.filter(b=>b.setId===currentSetId);
+  if (!bms.length) { el.innerHTML='<div class="bm-empty">북마크한 문제가 없어요<br>🔖 버튼을 눌러 추가해보세요!</div>'; return; }
+  el.innerHTML = bms.map(b=>`
     <div class="bm-item">
-      <div class="bm-item-q">${escHtml(b.question.length>80 ? b.question.slice(0,80)+'…' : b.question)}</div>
+      <div class="bm-item-q">${escHtml(b.question.length>80?b.question.slice(0,80)+'…':b.question)}</div>
       <div class="bm-item-meta">
         <span class="bm-item-set">${escHtml(b.setName)}</span>
         <span class="bm-item-del" onclick="removeBm('${b.key}')">✕</span>
@@ -727,16 +838,15 @@ function renderBmPanel() {
     </div>`).join('');
 }
 function removeBm(key) {
-  bookmarks = bookmarks.filter(b => b.key !== key);
-  saveBM(); updateBmFab(); renderBmPanel(); toast('🗑️ 북마크 삭제');
+  bookmarks=bookmarks.filter(b=>b.key!==key); saveBM(); updateBmFab(); renderBmPanel(); toast('🗑️ 북마크 삭제');
 }
 
 // ══════════════════════════════════════════════
-//  GUIDE / COPY EXAMPLE
+//  GUIDE / EXAMPLE
 // ══════════════════════════════════════════════
 function openGuide() { document.getElementById('guide-modal').classList.add('open'); }
 function closeGuide(e) {
-  if (!e || e.target===document.getElementById('guide-modal'))
+  if (!e||e.target===document.getElementById('guide-modal'))
     document.getElementById('guide-modal').classList.remove('open');
 }
 const EXAMPLE_JSON = `[
@@ -768,287 +878,234 @@ function copyExample() {
 //  START QUIZ
 // ══════════════════════════════════════════════
 function startQuiz(q_override, name_override, setId_override) {
-  // Resolve questions
   let parsed;
   if (q_override) {
     parsed = q_override;
   } else {
     const raw = document.getElementById('json-input').value.trim();
-    parsed = parseJSON(raw);
-    if (!parsed) return;
-    // Inject uploaded images
-    if (Object.keys(uploadedImages).length) {
-      parsed.forEach(q => { if (q.image && uploadedImages[q.image]) q.image = uploadedImages[q.image]; });
-    }
+    parsed = parseJSON(raw); if (!parsed) return;
+    if (Object.keys(uploadedImages).length)
+      parsed.forEach(q=>{ if(q.image&&uploadedImages[q.image]) q.image=uploadedImages[q.image]; });
   }
-
   questions    = parsed;
   setName      = name_override || '✨ Quiz';
   currentSetId = setId_override || null;
 
-  // Find set id from saved sets if not provided
   if (!currentSetId) {
     const raw = document.getElementById('json-input').value.trim();
-    const match = savedSets.find(s => s.json === raw);
+    const match = savedSets.find(s=>s.json===raw);
     if (match) currentSetId = match.id;
   }
 
-  // Build queue based on orderMode
-  let allIdx = questions.map((_,i) => i);
-
-  if (orderMode === 'rand') {
+  let allIdx = questions.map((_,i)=>i);
+  if (orderMode==='rand') {
     allIdx = shuffleArr(allIdx);
-  } else if (orderMode === 'wrong') {
-    // Get wrong qi from last session — stored in wrongSet
-    if (wrongSet && wrongSet.length) {
-      allIdx = wrongSet;
-    } else {
-      toast('❌ 오답 기록이 없어요. 먼저 한 번 풀어보세요!'); return;
-    }
-  } else if (orderMode === 'bm') {
-    const bmQis = bookmarks.filter(b => b.setId === currentSetId).map(b => b.qi);
+  } else if (orderMode==='wrong') {
+    if (wrongSet&&wrongSet.length) allIdx=wrongSet;
+    else { toast('❌ 오답 기록이 없어요. 먼저 한 번 풀어보세요!'); return; }
+  } else if (orderMode==='bm') {
+    const bmQis = bookmarks.filter(b=>b.setId===currentSetId).map(b=>b.qi);
     if (!bmQis.length) { toast('🔖 북마크한 문제가 없어요!'); return; }
-    allIdx = bmQis;
+    allIdx=bmQis;
   }
 
-  queueIdx = allIdx;
-  curPos   = 0;
-  results  = new Array(questions.length).fill(null);
-
-  showPage('pg-quiz');
-  updateBmFab();
-  renderQ();
+  queueIdx=allIdx; curPos=0; results=new Array(questions.length).fill(null);
+  showPage('pg-quiz'); updateBmFab(); renderQ();
 }
 
 // ══════════════════════════════════════════════
 //  RENDER QUESTION
 // ══════════════════════════════════════════════
 function renderQ() {
-  answered = false;
-  const qi  = queueIdx[curPos];
-  const q   = questions[qi];
-  const tot = queueIdx.length;
-
+  answered=false;
+  const qi=queueIdx[curPos], q=questions[qi], tot=queueIdx.length;
   document.getElementById('quiz-set-name').textContent = setName;
   document.getElementById('quiz-counter').textContent  = `${curPos+1} / ${tot}`;
-  document.getElementById('progress-fill').style.width = (curPos/tot*100) + '%';
+  document.getElementById('progress-fill').style.width = (curPos/tot*100)+'%';
   document.getElementById('q-num').textContent  = `Q${curPos+1}`;
-  const typeMap = { multiple:'객관식', short:'단답형', essay:'서술형' };
-  document.getElementById('q-type').textContent = typeMap[q.type||'multiple'] || '객관식';
+  const typeMap={multiple:'객관식',short:'단답형',essay:'서술형'};
+  document.getElementById('q-type').textContent = typeMap[q.type||'multiple']||'객관식';
   document.getElementById('q-text').textContent = q.question;
 
-  // image
-  const imgEl = document.getElementById('q-image');
-  if (q.image) { imgEl.src = q.image; imgEl.style.display='block'; }
-  else { imgEl.style.display='none'; imgEl.src=''; }
+  const imgEl=document.getElementById('q-image');
+  if (q.image){imgEl.src=q.image;imgEl.style.display='block';}
+  else{imgEl.style.display='none';imgEl.src='';}
 
-  // bookmark state
-  const bmBtn = document.getElementById('bookmark-btn');
-  if (isBookmarked(qi)) { bmBtn.classList.add('active'); bmBtn.style.opacity='1'; }
-  else { bmBtn.classList.remove('active'); bmBtn.style.opacity='.4'; }
+  const bmBtn=document.getElementById('bookmark-btn');
+  if (isBookmarked(qi)){bmBtn.classList.add('active');bmBtn.style.opacity='1';}
+  else{bmBtn.classList.remove('active');bmBtn.style.opacity='.4';}
 
-  // body
-  const body = document.getElementById('q-body');
-  body.innerHTML = '';
-  const type = q.type || 'multiple';
+  const body=document.getElementById('q-body');
+  body.innerHTML='';
+  const type=q.type||'multiple';
 
-  if (type === 'multiple') {
-    const wrap = document.createElement('div');
-    wrap.className = 'choices';
-    (q.choices||[]).forEach((text,ci) => {
-      const d = document.createElement('div');
-      d.className = 'choice'; d.dataset.ci = ci;
-      d.innerHTML = `<div class="choice-idx">${LABELS[ci]}</div><div class="choice-text">${escHtml(text)}</div>`;
-      d.addEventListener('click', () => pickChoice(d,ci,qi));
+  if (type==='multiple') {
+    const wrap=document.createElement('div'); wrap.className='choices';
+    (q.choices||[]).forEach((text,ci)=>{
+      const d=document.createElement('div');
+      d.className='choice'; d.dataset.ci=ci;
+      d.innerHTML=`<div class="choice-idx">${LABELS[ci]}</div><div class="choice-text">${escHtml(text)}</div>`;
+      d.addEventListener('click',()=>pickChoice(d,ci,qi));
       wrap.appendChild(d);
     });
     body.appendChild(wrap);
-  } else if (type === 'short') {
-    const inp = document.createElement('input');
-    inp.type='text'; inp.className='text-input'; inp.placeholder='정답을 입력하세요...'; inp.id='short-input';
-    inp.addEventListener('keydown', e => { if(e.key==='Enter') submitAnswer(); });
+  } else if (type==='short') {
+    const inp=document.createElement('input');
+    inp.type='text';inp.className='text-input';inp.placeholder='정답을 입력하세요...';inp.id='short-input';
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')submitAnswer();});
     body.appendChild(inp);
   } else {
-    const ta = document.createElement('textarea');
-    ta.className='text-input'; ta.rows=5; ta.placeholder='답을 서술하세요...'; ta.id='short-input';
+    const ta=document.createElement('textarea');
+    ta.className='text-input';ta.rows=5;ta.placeholder='답을 서술하세요...';ta.id='short-input';
     body.appendChild(ta);
   }
 
-  // feedback
-  const fb = document.getElementById('q-feedback');
-  fb.className='feedback'; fb.innerHTML='';
-
-  document.getElementById('btn-submit').style.display = 'inline-flex';
-  document.getElementById('btn-next').style.display   = 'none';
-  document.getElementById('btn-result').style.display = 'none';
-
-  const card = document.getElementById('q-card');
+  const fb=document.getElementById('q-feedback');
+  fb.className='feedback';fb.innerHTML='';
+  document.getElementById('btn-submit').style.display='inline-flex';
+  document.getElementById('btn-next').style.display='none';
+  document.getElementById('btn-result').style.display='none';
+  const card=document.getElementById('q-card');
   card.style.animation='none';
-  requestAnimationFrame(() => { card.style.animation=''; });
+  requestAnimationFrame(()=>{card.style.animation='';});
 }
 
 // ══════════════════════════════════════════════
-//  PICK CHOICE
+//  PICK CHOICE / SUBMIT
 // ══════════════════════════════════════════════
 function pickChoice(el,ci,qi) {
-  if (answered && mode==='instant') return;
-  document.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+  if (answered&&mode==='instant') return;
+  document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
   if (mode==='instant') submitAnswer();
 }
-
-// ══════════════════════════════════════════════
-//  SUBMIT
-// ══════════════════════════════════════════════
 function submitAnswer() {
   if (answered) return;
-  const qi   = queueIdx[curPos];
-  const q    = questions[qi];
-  const type = q.type||'multiple';
-  const fb   = document.getElementById('q-feedback');
-  let ok=false, chosen=null;
+  const qi=queueIdx[curPos],q=questions[qi],type=q.type||'multiple';
+  const fb=document.getElementById('q-feedback');
+  let ok=false,chosen=null;
 
   if (type==='multiple') {
-    const sel = document.querySelector('.choice.selected');
-    if (!sel) { toast('💡 선택지를 선택해주세요!'); return; }
-    chosen = parseInt(sel.dataset.ci);
-    ok     = chosen === q.answer;
-    document.querySelectorAll('.choice').forEach(c => {
+    const sel=document.querySelector('.choice.selected');
+    if (!sel){toast('💡 선택지를 선택해주세요!');return;}
+    chosen=parseInt(sel.dataset.ci);ok=chosen===q.answer;
+    document.querySelectorAll('.choice').forEach(c=>{
       c.classList.add('disabled');
-      const ci = parseInt(c.dataset.ci);
-      if (ci===q.answer) { c.classList.remove('selected'); c.classList.add(ok&&ci===chosen?'correct':'reveal'); }
+      const ci=parseInt(c.dataset.ci);
+      if(ci===q.answer){c.classList.remove('selected');c.classList.add(ok&&ci===chosen?'correct':'reveal');}
     });
-    sel.classList.remove('selected','reveal'); sel.classList.add(ok?'correct':'wrong');
-    if (mode==='instant') {
+    sel.classList.remove('selected','reveal');sel.classList.add(ok?'correct':'wrong');
+    if(mode==='instant'){
       fb.className='feedback show '+(ok?'correct-fb':'wrong-fb');
-      fb.innerHTML = ok
-        ? `<strong>🎉 정답!</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`
-        : `<strong>😢 오답.</strong> 정답: <strong>${LABELS[q.answer]}. ${escHtml(q.choices[q.answer])}</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`;
+      fb.innerHTML=ok
+        ?`<strong>🎉 정답!</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`
+        :`<strong>😢 오답.</strong> 정답: <strong>${LABELS[q.answer]}. ${escHtml(q.choices[q.answer])}</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`;
     }
   } else if (type==='short') {
-    const inp = document.getElementById('short-input');
-    if (!inp||!inp.value.trim()) { toast('💡 답을 입력해주세요!'); return; }
-    chosen = inp.value.trim();
-    ok     = chosen.toLowerCase().trim()===String(q.answer).toLowerCase().trim();
-    inp.classList.add(ok?'correct-border':'wrong-border'); inp.disabled=true;
-    if (mode==='instant') {
+    const inp=document.getElementById('short-input');
+    if(!inp||!inp.value.trim()){toast('💡 답을 입력해주세요!');return;}
+    chosen=inp.value.trim();ok=chosen.toLowerCase().trim()===String(q.answer).toLowerCase().trim();
+    inp.classList.add(ok?'correct-border':'wrong-border');inp.disabled=true;
+    if(mode==='instant'){
       fb.className='feedback show '+(ok?'correct-fb':'wrong-fb');
-      fb.innerHTML = ok
-        ? `<strong>🎉 정답!</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`
-        : `<strong>😢 오답.</strong> 정답: <strong>${escHtml(String(q.answer))}</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`;
+      fb.innerHTML=ok
+        ?`<strong>🎉 정답!</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`
+        :`<strong>😢 오답.</strong> 정답: <strong>${escHtml(String(q.answer))}</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`;
     }
   } else {
-    const inp = document.getElementById('short-input');
-    if (!inp||!inp.value.trim()) { toast('💡 답을 작성해주세요!'); return; }
-    chosen=inp.value.trim(); ok=true; inp.disabled=true;
-    if (mode==='instant') {
+    const inp=document.getElementById('short-input');
+    if(!inp||!inp.value.trim()){toast('💡 답을 작성해주세요!');return;}
+    chosen=inp.value.trim();ok=true;inp.disabled=true;
+    if(mode==='instant'){
       fb.className='feedback show review-fb';
       fb.innerHTML=`<strong>📝 모범 답안:</strong> ${escHtml(String(q.answer))}${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`;
     }
   }
-
-  answered=true; results[qi]={qi,chosen,ok,type};
+  answered=true;results[qi]={qi,chosen,ok,type};
   document.getElementById('btn-submit').style.display='none';
-  const isLast = curPos===queueIdx.length-1;
+  const isLast=curPos===queueIdx.length-1;
   document.getElementById(isLast?'btn-result':'btn-next').style.display='inline-flex';
 }
-
-function nextQ() { curPos++; renderQ(); }
+function nextQ(){curPos++;renderQ();}
 
 // ══════════════════════════════════════════════
 //  RESULT
 // ══════════════════════════════════════════════
-let wrongSet = [];  // stored wrong qi after each session
-
 function showResult() {
   showPage('pg-result');
-  const nonEssay = queueIdx.filter(qi => (questions[qi].type||'multiple')!=='essay');
-  const correct  = nonEssay.filter(qi => results[qi]?.ok).length;
-  const scoreOf  = nonEssay.length;
-  const pct      = scoreOf>0 ? Math.round(correct/scoreOf*100) : 100;
+  const nonEssay=queueIdx.filter(qi=>(questions[qi].type||'multiple')!=='essay');
+  const correct=nonEssay.filter(qi=>results[qi]?.ok).length;
+  const scoreOf=nonEssay.length;
+  const pct=scoreOf>0?Math.round(correct/scoreOf*100):100;
+  wrongSet=nonEssay.filter(qi=>!results[qi]?.ok);
+  recordHistory(currentSetId,correct,scoreOf);
 
-  // Store wrong qi
-  wrongSet = nonEssay.filter(qi => !results[qi]?.ok);
+  document.getElementById('score-frac').innerHTML=`${correct}<span>/${scoreOf}</span>`;
+  document.getElementById('score-pct').textContent=`정답률 ${pct}%`;
+  const tiers=[[90,['🎉','완벽해요!']],[70,['🌟','잘했어요!']],[50,['🌱','아쉬워요...']],[0,['📚','힘내요!']]];
+  const [emoji,msg]=tiers.find(([t])=>pct>=t)[1];
+  document.getElementById('score-emoji').textContent=emoji;
+  document.getElementById('result-msg').textContent=msg;
+  document.getElementById('result-sub').textContent=`${queueIdx.length}문제 중 ${correct}개 정답`;
 
-  // Record history
-  recordHistory(currentSetId, correct, scoreOf);
-
-  document.getElementById('score-frac').innerHTML = `${correct}<span>/${scoreOf}</span>`;
-  document.getElementById('score-pct').textContent = `정답률 ${pct}%`;
-
-  const tiers = [[90,['🎉','완벽해요!']],[70,['🌟','잘했어요!']],[50,['🌱','아쉬워요...']],[0,['📚','힘내요!']]];
-  const [emoji,msg] = tiers.find(([t])=>pct>=t)[1];
-  document.getElementById('score-emoji').textContent = emoji;
-  document.getElementById('result-msg').textContent  = msg;
-  document.getElementById('result-sub').textContent  = `${queueIdx.length}문제 중 ${correct}개 정답`;
-
-  // History dots
-  const s = currentSetId ? savedSets.find(s=>s.id===currentSetId) : null;
-  const hist = s?.history || [];
-  const histWrap = document.getElementById('history-wrap');
-  const histStrip = document.getElementById('history-strip');
-  if (hist.length > 1) {
+  const s=currentSetId?savedSets.find(s=>s.id===currentSetId):null;
+  const hist=s?.history||[];
+  const histWrap=document.getElementById('history-wrap');
+  if(hist.length>1){
     histWrap.style.display='block';
-    const fmt = d => new Date(d).toLocaleDateString('ko-KR',{month:'short',day:'numeric'});
-    histStrip.innerHTML = hist.slice(-10).map(h =>
+    const fmt=d=>new Date(d).toLocaleDateString('ko-KR',{month:'short',day:'numeric'});
+    document.getElementById('history-strip').innerHTML=hist.slice(-10).map(h=>
       `<div class="h-dot ${h.pct>=70?'ok':'err'}" title="${fmt(h.date)} ${h.pct}%">${h.pct}%</div>`
     ).join('');
-  } else {
-    histWrap.style.display='none';
-  }
+  } else histWrap.style.display='none';
 
-  // Review grid
-  const grid = document.getElementById('review-grid');
-  grid.innerHTML = queueIdx.map((qi,pos) => {
-    const q   = questions[qi];
-    const res = results[qi];
-    const ok  = res?.ok;
-    const isEssay = (q.type||'multiple')==='essay';
-    const shortQ = q.question.length>55 ? q.question.slice(0,55)+'…' : q.question;
-    const bm = isBookmarked(qi) ? '🔖' : '';
-    const cls = isEssay ? 'neutral' : ok ? 'ok' : 'err';
-    const tag = isEssay ? '서술형' : ok ? '✓ 정답' : '✗ 오답';
+  document.getElementById('review-grid').innerHTML=queueIdx.map((qi,pos)=>{
+    const q=questions[qi],res=results[qi],ok=res?.ok;
+    const isEssay=(q.type||'multiple')==='essay';
+    const shortQ=q.question.length>55?q.question.slice(0,55)+'…':q.question;
+    const bm=isBookmarked(qi)?'🔖':'';
+    const cls=isEssay?'neutral':ok?'ok':'err';
+    const tag=isEssay?'서술형':ok?'✓ 정답':'✗ 오답';
     return `<div class="rv-item">
       <div class="rv-dot ${cls}"></div>
       <div class="rv-q"><strong>Q${pos+1}.</strong> ${escHtml(shortQ)}</div>
-      ${bm ? `<span class="rv-bm">${bm}</span>` : ''}
+      ${bm?`<span class="rv-bm">${bm}</span>`:''}
       <div class="rv-tag ${cls}">${tag}</div>
     </div>`;
   }).join('');
 
-  // Retry buttons
-  document.getElementById('btn-retry-wrong').disabled = wrongSet.length===0;
-  const bmQis = bookmarks.filter(b=>b.setId===currentSetId).map(b=>b.qi);
-  document.getElementById('btn-retry-bm').disabled = bmQis.length===0;
-
-  renderSavedList(); // refresh saved list with updated history
+  document.getElementById('btn-retry-wrong').disabled=wrongSet.length===0;
+  const bmQis=bookmarks.filter(b=>b.setId===currentSetId).map(b=>b.qi);
+  document.getElementById('btn-retry-bm').disabled=bmQis.length===0;
+  renderSavedList();
 }
 
 // ══════════════════════════════════════════════
-//  RETRY
+//  RETRY / NAV
 // ══════════════════════════════════════════════
-function retryWrong() {
-  if (!wrongSet.length) { toast('🎉 틀린 문제가 없어요!'); return; }
-  queueIdx = wrongSet; curPos=0; results=new Array(questions.length).fill(null);
-  showPage('pg-quiz'); renderQ();
+function retryWrong(){
+  if(!wrongSet.length){toast('🎉 틀린 문제가 없어요!');return;}
+  queueIdx=wrongSet;curPos=0;results=new Array(questions.length).fill(null);
+  showPage('pg-quiz');renderQ();
 }
-function retryBookmarks() {
-  const bmQis = bookmarks.filter(b=>b.setId===currentSetId).map(b=>b.qi);
-  if (!bmQis.length) { toast('🔖 북마크한 문제가 없어요!'); return; }
-  queueIdx=bmQis; curPos=0; results=new Array(questions.length).fill(null);
-  showPage('pg-quiz'); renderQ();
+function retryBookmarks(){
+  const bmQis=bookmarks.filter(b=>b.setId===currentSetId).map(b=>b.qi);
+  if(!bmQis.length){toast('🔖 북마크한 문제가 없어요!');return;}
+  queueIdx=bmQis;curPos=0;results=new Array(questions.length).fill(null);
+  showPage('pg-quiz');renderQ();
 }
-function retryAll() {
-  queueIdx=questions.map((_,i)=>i); curPos=0; results=new Array(questions.length).fill(null);
-  showPage('pg-quiz'); renderQ();
+function retryAll(){
+  queueIdx=questions.map((_,i)=>i);curPos=0;results=new Array(questions.length).fill(null);
+  showPage('pg-quiz');renderQ();
 }
-function goSetup() { showPage('pg-setup'); }
+function goSetup(){showPage('pg-setup');}
 
 // ══════════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════════
 renderSavedList();
 updateBmFab();
+checkUrlShare();  // 공유 링크 자동 감지
 </script>
 </body>
 </html>
