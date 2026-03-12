@@ -7,7 +7,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
 <!-- LZ-String: 압축 기반 URL 공유 -->
-<script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js">
+function handleJsonFile(files){
+  const file = files && files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const text = e.target.result;
+    const textarea = document.getElementById('json-input');
+    textarea.value = text;
+    try{
+      if(typeof parseJSON === "function"){ parseJSON(text); }
+    }catch(err){}
+    alert("JSON 파일을 불러왔습니다.");
+  };
+  reader.onerror = function(){
+    alert("파일을 읽는 중 오류가 발생했습니다.");
+  };
+  reader.readAsText(file,'utf-8');
+}
+
+</script>
 <style>
 :root {
   --bg:       #fff8f5;
@@ -323,6 +343,12 @@ textarea#json-input::placeholder { color:var(--ink3); }
     "explanation": "A가 정답인 이유..."
   }
 ]'></textarea>
+    
+<div class="btn-row-sm" style="margin-top:8px;">
+  <button class="btn" onclick="document.getElementById('json-file-input').click()">📂 JSON 파일 열기</button>
+  <input type="file" id="json-file-input" accept=".json,application/json" style="display:none" onchange="handleJsonFile(this.files)">
+</div>
+
     <div class="btn-row-sm">
       <button class="btn" onclick="openGuide()">📋 JSON 형식 가이드</button>
       <button class="btn" onclick="copyExample()">📎 예시 JSON 복사</button>
@@ -1106,6 +1132,26 @@ function goSetup(){showPage('pg-setup');}
 renderSavedList();
 updateBmFab();
 checkUrlShare();  // 공유 링크 자동 감지
+
+function handleJsonFile(files){
+  const file = files && files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const text = e.target.result;
+    const textarea = document.getElementById('json-input');
+    textarea.value = text;
+    try{
+      if(typeof parseJSON === "function"){ parseJSON(text); }
+    }catch(err){}
+    alert("JSON 파일을 불러왔습니다.");
+  };
+  reader.onerror = function(){
+    alert("파일을 읽는 중 오류가 발생했습니다.");
+  };
+  reader.readAsText(file,'utf-8');
+}
+
 </script>
 </body>
 </html>
