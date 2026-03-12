@@ -3,26 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>야마뽀개자👍</title>
+<title>🌸 JSON Quiz 🌸</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Fredoka:wght@400;500;600;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:       #fff8f5;
   --bg2:      #fff0ea;
   --surface:  #ffffff;
-  --card:     #ffffff;
   --ink:      #3d2c2c;
   --ink2:     #7a5c5c;
   --ink3:     #b89898;
   --line:     #f0ddd8;
   --line2:    #e8cfc9;
-
   --pink:     #ff7eb3;
   --pink-l:   #fff0f7;
   --pink-d:   #e85d9a;
   --coral:    #ff8c69;
-  --coral-l:  #fff3ee;
   --mint:     #4ecba0;
   --mint-l:   #edfaf5;
   --mint-d:   #3aad86;
@@ -34,15 +31,13 @@
   --lav-l:    #f5f0ff;
   --red:      #ff6b8a;
   --red-l:    #fff0f3;
-
-  --r:        16px;
-  --r-sm:     10px;
-  --shadow:   0 4px 24px rgba(255,126,179,.12);
+  --amber:    #ffb347;
+  --amber-l:  #fff8ee;
+  --r: 16px; --r-sm: 10px;
+  --shadow:    0 4px 24px rgba(255,126,179,.12);
   --shadow-lg: 0 8px 40px rgba(255,126,179,.18);
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   background: var(--bg);
   background-image:
@@ -50,722 +45,240 @@ body {
     radial-gradient(circle at 90% 80%, #e4f3ff 0%, transparent 40%),
     radial-gradient(circle at 50% 50%, #f3ffe4 0%, transparent 60%);
   color: var(--ink);
-  font-family: 'Nunito', 'Nanum Gothic', sans-serif;
+  font-family: 'Nunito','Nanum Gothic',sans-serif;
   font-size: 15px;
   line-height: 1.6;
   min-height: 100vh;
 }
+.page { display:none; }
+.page.active { display:block; }
 
-/* ── PAGES ── */
-.page { display: none; }
-.page.active { display: block; }
+/* ══ LAYOUT ══ */
+.wrap { max-width:680px; margin:0 auto; padding:40px 20px 80px; }
+.wrap-md { max-width:660px; margin:0 auto; padding:28px 20px 80px; }
 
-/* ══ SETUP ══ */
-#pg-setup {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 40px 20px 80px;
-}
+/* ══ SITE HEADER ══ */
+.site-header { text-align:center; margin-bottom:28px; animation:bounceIn .6s cubic-bezier(.34,1.56,.64,1); }
+@keyframes bounceIn { from{opacity:0;transform:scale(.8) translateY(-16px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.site-emoji { font-size:52px; display:block; margin-bottom:6px; filter:drop-shadow(0 4px 8px rgba(255,126,179,.3)); }
+.site-title { font-family:'Fredoka',sans-serif; font-size:32px; font-weight:700; color:var(--pink); letter-spacing:.02em; display:block; }
+.site-sub   { font-size:13px; color:var(--ink3); font-weight:600; letter-spacing:.06em; margin-top:2px; }
 
-.site-header {
-  text-align: center;
-  margin-bottom: 36px;
-  animation: bounceIn .6s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes bounceIn {
-  from { opacity:0; transform:scale(.8) translateY(-16px); }
-  to   { opacity:1; transform:scale(1) translateY(0); }
-}
-.site-emoji {
-  font-size: 52px;
-  display: block;
-  margin-bottom: 6px;
-  filter: drop-shadow(0 4px 8px rgba(255,126,179,.3));
-}
-.site-title {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--pink);
-  letter-spacing: .02em;
-  display: block;
-}
-.site-sub {
-  font-size: 13px;
-  color: var(--ink3);
-  font-weight: 600;
-  letter-spacing: .06em;
-  margin-top: 2px;
-}
+/* ══ SECTION CARD ══ */
+.section-card { background:var(--surface); border:2px solid var(--line); border-radius:20px; padding:24px; margin-bottom:16px; box-shadow:var(--shadow); }
+.section-head { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.section-icon { font-size:22px; width:40px; height:40px; border-radius:12px; background:var(--pink-l); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.section-title { font-family:'Fredoka',sans-serif; font-size:18px; font-weight:600; color:var(--ink); }
+.section-desc { font-size:13px; color:var(--ink2); margin-bottom:14px; line-height:1.65; }
+code { font-size:12px; background:var(--lemon-l); color:#8a6000; border-radius:5px; padding:1px 6px; }
 
-/* section card */
-.section-card {
-  background: var(--surface);
-  border: 2px solid var(--line);
-  border-radius: 20px;
-  padding: 24px;
-  margin-bottom: 16px;
-  box-shadow: var(--shadow);
-  transition: box-shadow .2s;
-}
-.section-card:hover { box-shadow: var(--shadow-lg); }
+/* ══ TEXTAREA ══ */
+textarea#json-input { width:100%; height:180px; background:var(--bg); border:2px solid var(--line); border-radius:var(--r-sm); padding:14px; font-family:'Nunito',monospace; font-size:12.5px; color:var(--ink); resize:vertical; outline:none; transition:border-color .15s,box-shadow .15s; line-height:1.7; }
+textarea#json-input:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,126,179,.15); }
+textarea#json-input::placeholder { color:var(--ink3); }
 
-.section-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.section-icon {
-  font-size: 22px;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--pink-l);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.section-title {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.section-desc {
-  font-size: 13px;
-  color: var(--ink2);
-  margin-bottom: 14px;
-  line-height: 1.65;
-}
+/* ══ BUTTONS ══ */
+.btn-row-sm { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.btn { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:99px; border:2px solid var(--line2); background:var(--surface); color:var(--ink2); font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:all .15s; white-space:nowrap; }
+.btn:hover { border-color:var(--pink); color:var(--pink); transform:translateY(-1px); box-shadow:0 4px 12px rgba(255,126,179,.2); }
+.btn:active { transform:scale(.96) translateY(0); }
+.btn:disabled { opacity:.4; cursor:default; pointer-events:none; }
+.btn-primary { background:linear-gradient(135deg,var(--pink),var(--coral)); color:#fff; border-color:transparent; box-shadow:0 4px 16px rgba(255,126,179,.35); }
+.btn-primary:hover { opacity:.9; color:#fff; border-color:transparent; box-shadow:0 6px 20px rgba(255,126,179,.45); }
+.btn-accent { background:linear-gradient(135deg,var(--mint),var(--sky)); color:#fff; border-color:transparent; box-shadow:0 4px 16px rgba(78,203,160,.3); }
+.btn-accent:hover { opacity:.9; color:#fff; border-color:transparent; }
+.btn-ghost { background:transparent; border-color:transparent; color:var(--ink3); padding:9px 12px; }
+.btn-ghost:hover { background:var(--pink-l); color:var(--pink); border-color:transparent; box-shadow:none; }
+.btn-start { width:100%; padding:16px; font-size:16px; font-family:'Fredoka',sans-serif; font-weight:600; letter-spacing:.04em; border-radius:16px; margin-top:4px; }
 
-/* textarea */
-textarea#json-input {
-  width: 100%;
-  height: 180px;
-  background: var(--bg);
-  border: 2px solid var(--line);
-  border-radius: var(--r-sm);
-  padding: 14px;
-  font-family: 'Nunito', monospace;
-  font-size: 12.5px;
-  color: var(--ink);
-  resize: vertical;
-  outline: none;
-  transition: border-color .15s, box-shadow .15s;
-  line-height: 1.7;
-}
-textarea#json-input:focus {
-  border-color: var(--pink);
-  box-shadow: 0 0 0 3px rgba(255,126,179,.15);
-}
-textarea#json-input::placeholder { color: var(--ink3); }
+/* ══ OPTIONS ROW ══ */
+.options-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.opt-toggle { display:flex; align-items:center; gap:6px; padding:9px 14px; border-radius:12px; border:2px solid var(--line); background:var(--bg); cursor:pointer; font-size:13px; font-weight:700; color:var(--ink2); transition:all .15s; user-select:none; }
+.opt-toggle:hover { border-color:var(--pink); color:var(--pink); background:var(--pink-l); }
+.opt-toggle.on { border-color:var(--pink); background:var(--pink-l); color:var(--pink-d); }
 
-/* ── BUTTONS ── */
-.btn-row-sm {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
+/* ══ SAVED LIST ══ */
+.saved-label { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:var(--ink3); margin-bottom:10px; }
+.saved-list { display:flex; flex-direction:column; gap:7px; }
+.saved-item { display:flex; align-items:center; padding:12px 14px; border-radius:var(--r-sm); border:2px solid var(--line); background:var(--bg); cursor:pointer; gap:8px; transition:all .15s; }
+.saved-item:hover { border-color:var(--pink); background:var(--pink-l); transform:translateX(3px); }
+.s-title { flex:1; font-size:14px; font-weight:700; color:var(--ink); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.s-meta { display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.s-count { font-size:11.5px; font-weight:700; color:var(--pink); background:var(--pink-l); border-radius:99px; padding:2px 9px; }
+.s-best  { font-size:11.5px; font-weight:700; color:var(--mint-d); background:var(--mint-l); border-radius:99px; padding:2px 9px; }
+.s-plays { font-size:11px; color:var(--ink3); font-weight:600; }
+.s-del   { font-size:18px; color:var(--ink3); cursor:pointer; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .12s; flex-shrink:0; }
+.s-del:hover { color:var(--red); background:var(--red-l); }
+.empty-note { font-size:13px; color:var(--ink3); font-style:italic; text-align:center; padding:16px 0; }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 16px;
-  border-radius: 99px;
-  border: 2px solid var(--line2);
-  background: var(--surface);
-  color: var(--ink2);
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all .15s;
-  white-space: nowrap;
-}
-.btn:hover { border-color: var(--pink); color: var(--pink); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,126,179,.2); }
-.btn:active { transform: scale(.96) translateY(0); }
-.btn:disabled { opacity: .4; cursor: default; pointer-events: none; }
+/* ══ MODE SELECTOR ══ */
+.mode-group { display:flex; gap:10px; }
+.mode-opt { flex:1; padding:14px 16px; border-radius:14px; border:2px solid var(--line); background:var(--bg); cursor:pointer; transition:all .15s; text-align:left; }
+.mode-opt:hover { border-color:var(--pink); background:var(--pink-l); }
+.mode-opt.selected { border-color:var(--pink); background:var(--pink-l); box-shadow:0 0 0 2px rgba(255,126,179,.2); }
+.mode-opt .mode-icon  { font-size:20px; margin-bottom:5px; display:block; }
+.mode-opt .mode-title { font-size:13px; font-weight:800; margin-bottom:2px; color:var(--ink); }
+.mode-opt .mode-sub   { font-size:11.5px; color:var(--ink2); font-weight:600; }
+.mode-opt.selected .mode-title { color:var(--pink-d); }
+.mode-opt.selected .mode-sub   { color:var(--pink); }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--pink), var(--coral));
-  color: #fff;
-  border-color: transparent;
-  box-shadow: 0 4px 16px rgba(255,126,179,.35);
-}
-.btn-primary:hover { opacity: .9; color: #fff; border-color: transparent; box-shadow: 0 6px 20px rgba(255,126,179,.45); }
+/* ══ IMAGE UPLOAD ══ */
+#img-drop-zone { border:2.5px dashed var(--line2); border-radius:14px; padding:26px 20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--bg); margin-bottom:12px; }
+#img-drop-zone:hover, #img-drop-zone.drag-over { border-color:var(--pink); background:var(--pink-l); }
+.drop-icon { font-size:30px; margin-bottom:6px; }
+.drop-main { font-size:14px; font-weight:700; color:var(--ink2); margin-bottom:3px; }
+.drop-sub  { font-size:12px; color:var(--ink3); font-weight:600; }
+#img-preview-list { display:flex; flex-wrap:wrap; gap:8px; }
+.img-chip { display:flex; align-items:center; gap:8px; padding:6px 10px 6px 6px; border-radius:10px; background:var(--surface); border:2px solid var(--line); font-size:12px; font-weight:700; color:var(--ink2); animation:bounceIn .25s cubic-bezier(.34,1.4,.64,1); }
+.img-chip img { width:32px; height:32px; border-radius:6px; object-fit:cover; border:1px solid var(--line); }
+.img-chip .chip-name { max-width:90px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.chip-del { font-size:14px; color:var(--ink3); cursor:pointer; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .12s; }
+.chip-del:hover { background:var(--red-l); color:var(--red); }
 
-.btn-accent {
-  background: linear-gradient(135deg, var(--mint), var(--sky));
-  color: #fff;
-  border-color: transparent;
-  box-shadow: 0 4px 16px rgba(78,203,160,.3);
-}
-.btn-accent:hover { opacity: .9; color: #fff; border-color: transparent; }
+/* ══ QUIZ HEADER ══ */
+.quiz-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.quiz-set-name { font-family:'Fredoka',sans-serif; font-size:16px; font-weight:600; color:var(--pink-d); flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.quiz-counter  { font-size:13px; font-weight:800; color:var(--ink3); background:var(--surface); border:2px solid var(--line); border-radius:99px; padding:3px 12px; flex-shrink:0; }
+.progress-track { height:8px; background:var(--line); border-radius:99px; margin-bottom:20px; overflow:hidden; }
+.progress-fill  { height:100%; background:linear-gradient(90deg,var(--pink),var(--coral)); border-radius:99px; transition:width .4s cubic-bezier(.4,0,.2,1); }
 
-.btn-ghost {
-  background: transparent;
-  border-color: transparent;
-  color: var(--ink3);
-  padding: 9px 12px;
-}
-.btn-ghost:hover { background: var(--pink-l); color: var(--pink); border-color: transparent; box-shadow: none; }
+/* ══ QUESTION CARD ══ */
+.q-card { background:var(--surface); border:2px solid var(--line); border-radius:22px; padding:28px; margin-bottom:14px; box-shadow:var(--shadow); animation:slideUp .28s cubic-bezier(.34,1.3,.64,1); }
+@keyframes slideUp { from{opacity:0;transform:translateY(16px) scale(.98)} to{opacity:1;transform:translateY(0) scale(1)} }
+.q-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; gap:8px; }
+.q-badge { display:flex; align-items:center; gap:8px; }
+.q-num  { font-family:'Fredoka',sans-serif; font-size:13px; font-weight:600; color:#fff; background:linear-gradient(135deg,var(--pink),var(--coral)); border-radius:99px; padding:3px 12px; box-shadow:0 2px 8px rgba(255,126,179,.35); }
+.q-type { font-size:12px; font-weight:700; color:var(--ink3); background:var(--bg2); border-radius:99px; padding:3px 10px; border:2px solid var(--line); }
 
-.btn-start {
-  width: 100%;
-  padding: 16px;
-  font-size: 16px;
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 600;
-  letter-spacing: .04em;
-  border-radius: 16px;
-  margin-top: 4px;
-}
+/* ── BOOKMARK ── */
+.bookmark-btn { font-size:22px; cursor:pointer; transition:transform .2s cubic-bezier(.34,1.56,.64,1); line-height:1; user-select:none; opacity:.4; }
+.bookmark-btn:hover { transform:scale(1.2); opacity:.8; }
+.bookmark-btn.active { opacity:1; animation:bookmarkPop .3s cubic-bezier(.34,1.56,.64,1); }
+@keyframes bookmarkPop { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
 
-/* ── SAVED SETS ── */
-.saved-label {
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: var(--ink3);
-  margin-bottom: 10px;
-}
-.saved-list { display: flex; flex-direction: column; gap: 7px; }
-.saved-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 14px;
-  border-radius: var(--r-sm);
-  border: 2px solid var(--line);
-  background: var(--bg);
-  cursor: pointer;
-  gap: 10px;
-  transition: all .15s;
-}
-.saved-item:hover { border-color: var(--pink); background: var(--pink-l); transform: translateX(3px); }
-.saved-item .s-title { flex: 1; font-size: 14px; font-weight: 700; color: var(--ink); }
-.saved-item .s-count {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--pink);
-  background: var(--pink-l);
-  border-radius: 99px;
-  padding: 2px 10px;
-}
-.saved-item .s-del {
-  font-size: 18px;
-  color: var(--ink3);
-  cursor: pointer;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all .12s;
-}
-.saved-item .s-del:hover { color: var(--red); background: var(--red-l); }
-.empty-note {
-  font-size: 13px;
-  color: var(--ink3);
-  font-style: italic;
-  text-align: center;
-  padding: 16px 0;
-}
+.q-text  { font-size:16px; font-weight:700; line-height:1.7; color:var(--ink); margin-bottom:20px; }
+.q-image { width:100%; max-height:240px; object-fit:contain; border-radius:12px; border:2px solid var(--line); background:var(--bg); margin-bottom:20px; padding:10px; display:block; }
 
-/* ── MODE SELECTOR ── */
-.mode-group { display: flex; gap: 10px; }
-.mode-opt {
-  flex: 1;
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 2px solid var(--line);
-  background: var(--bg);
-  cursor: pointer;
-  transition: all .15s;
-  text-align: left;
-}
-.mode-opt:hover { border-color: var(--pink); background: var(--pink-l); }
-.mode-opt.selected {
-  border-color: var(--pink);
-  background: var(--pink-l);
-  box-shadow: 0 0 0 2px rgba(255,126,179,.2);
-}
-.mode-opt .mode-icon { font-size: 22px; margin-bottom: 6px; display: block; }
-.mode-opt .mode-title { font-size: 13.5px; font-weight: 800; margin-bottom: 2px; color: var(--ink); }
-.mode-opt .mode-sub { font-size: 11.5px; color: var(--ink2); font-weight: 600; }
-.mode-opt.selected .mode-title { color: var(--pink-d); }
-.mode-opt.selected .mode-sub   { color: var(--pink); }
+/* ── CHOICES ── */
+.choices { display:flex; flex-direction:column; gap:9px; }
+.choice  { display:flex; align-items:flex-start; gap:12px; padding:13px 16px; border-radius:14px; border:2.5px solid var(--line); background:var(--bg); cursor:pointer; transition:all .15s cubic-bezier(.34,1.2,.64,1); user-select:none; position:relative; overflow:hidden; }
+.choice::before { content:''; position:absolute; left:0;top:0;bottom:0; width:4px; background:var(--pink); border-radius:4px 0 0 4px; transform:scaleY(0); transition:transform .15s; }
+.choice:hover:not(.disabled) { border-color:var(--pink); background:var(--pink-l); transform:translateX(4px); box-shadow:0 4px 16px rgba(255,126,179,.18); }
+.choice:hover:not(.disabled)::before { transform:scaleY(1); }
+.choice.selected { border-color:var(--pink); background:var(--pink-l); transform:translateX(4px); }
+.choice.selected::before { transform:scaleY(1); }
+.choice.correct { border-color:var(--mint); background:var(--mint-l); transform:translateX(4px); }
+.choice.correct::before { background:var(--mint); transform:scaleY(1); }
+.choice.wrong   { border-color:var(--red); background:var(--red-l); }
+.choice.wrong::before { background:var(--red); transform:scaleY(1); }
+.choice.reveal  { border-color:var(--mint); background:var(--mint-l); opacity:.7; }
+.choice.reveal::before { background:var(--mint); transform:scaleY(1); }
+.choice.disabled { cursor:default; transform:none !important; }
+.choice.disabled:hover { box-shadow:none; }
+.choice-idx  { flex-shrink:0; width:28px; height:28px; border-radius:50%; border:2.5px solid var(--line2); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:var(--ink3); transition:all .15s; margin-top:1px; background:var(--surface); }
+.choice.selected .choice-idx { border-color:var(--pink); color:var(--pink); background:var(--pink-l); }
+.choice.correct  .choice-idx { border-color:var(--mint); color:var(--mint-d); background:var(--mint-l); }
+.choice.wrong    .choice-idx { border-color:var(--red);  color:var(--red);   background:var(--red-l); }
+.choice.reveal   .choice-idx { border-color:var(--mint); color:var(--mint-d); background:var(--mint-l); }
+.choice-text { font-size:14.5px; font-weight:600; line-height:1.55; color:var(--ink); padding-top:4px; }
 
-/* ── GUIDE MODAL ── */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(61,44,44,.35);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-  background: var(--surface);
-  border-radius: 20px;
-  max-width: 600px;
-  width: 100%;
-  max-height: 82vh;
-  overflow-y: auto;
-  padding: 28px;
-  box-shadow: 0 20px 60px rgba(255,126,179,.2), 0 4px 20px rgba(0,0,0,.1);
-  animation: popIn .22s cubic-bezier(.34,1.56,.64,1);
-  border: 2px solid var(--line);
-}
-@keyframes popIn { from { transform:scale(.88); opacity:0; } to { transform:scale(1); opacity:1; } }
-.modal h3 {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--pink-d);
-}
-.modal pre {
-  background: var(--bg);
-  border: 2px solid var(--line);
-  border-radius: 10px;
-  padding: 14px;
-  font-family: monospace;
-  font-size: 12px;
-  line-height: 1.75;
-  overflow-x: auto;
-  margin-bottom: 16px;
-  white-space: pre-wrap;
-  color: var(--ink);
-}
-.modal .close-btn {
-  float: right;
-  background: var(--pink-l);
-  border: none;
-  border-radius: 99px;
-  padding: 4px 12px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--pink);
-  margin-bottom: 10px;
-}
-.modal p { font-size: 13.5px; color: var(--ink2); margin-bottom: 10px; line-height: 1.65; }
-.modal ul { padding-left: 20px; margin-bottom: 12px; }
-.modal li { font-size: 13.5px; color: var(--ink2); margin-bottom: 5px; }
-.field-tag {
-  display: inline-block;
-  font-family: monospace;
-  font-size: 12px;
-  background: var(--lemon-l);
-  color: #a07000;
-  border-radius: 5px;
-  padding: 1px 7px;
-  font-weight: 700;
-}
+/* ── TEXT INPUT ── */
+.text-input { width:100%; border:2.5px solid var(--line); border-radius:12px; padding:13px 15px; font-family:'Nunito',sans-serif; font-size:15px; font-weight:600; color:var(--ink); background:var(--bg); outline:none; transition:all .15s; resize:none; }
+.text-input:focus { border-color:var(--pink); background:var(--surface); box-shadow:0 0 0 3px rgba(255,126,179,.15); }
+.text-input.correct-border { border-color:var(--mint); background:var(--mint-l); }
+.text-input.wrong-border   { border-color:var(--red);  background:var(--red-l); }
 
-/* ══ QUIZ PAGE ══ */
-#pg-quiz {
-  max-width: 660px;
-  margin: 0 auto;
-  padding: 28px 20px 80px;
-}
+/* ── FEEDBACK ── */
+.feedback { display:none; margin-top:14px; padding:14px 18px; border-radius:14px; border:2px solid; font-size:14px; font-weight:600; line-height:1.6; animation:bounceIn .3s cubic-bezier(.34,1.4,.64,1); }
+.feedback.show { display:block; }
+.feedback.correct-fb { background:var(--mint-l); border-color:rgba(78,203,160,.4); color:var(--mint-d); }
+.feedback.wrong-fb   { background:var(--red-l);  border-color:rgba(255,107,138,.35); color:#c0415f; }
+.feedback.review-fb  { background:var(--lemon-l);border-color:rgba(255,209,102,.5);  color:#8a6a00; }
+.feedback .ans-reveal { margin-top:8px; font-size:13px; opacity:.85; font-weight:600; }
 
-.quiz-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-.quiz-set-name {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--pink-d);
-}
-.quiz-counter {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--ink3);
-  background: var(--surface);
-  border: 2px solid var(--line);
-  border-radius: 99px;
-  padding: 3px 12px;
-}
+/* ── Q ACTIONS ── */
+.q-actions { display:flex; justify-content:flex-end; align-items:center; gap:10px; }
 
-.progress-track {
-  height: 8px;
-  background: var(--line);
-  border-radius: 99px;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--pink), var(--coral));
-  border-radius: 99px;
-  transition: width .4s cubic-bezier(.4,0,.2,1);
-  position: relative;
-}
-.progress-fill::after {
-  content: '';
-  position: absolute;
-  right: 0; top: 0; bottom: 0;
-  width: 20px;
-  background: rgba(255,255,255,.4);
-  border-radius: 99px;
-  animation: shimmer 1.4s ease-in-out infinite;
-}
-@keyframes shimmer { 0%,100% { opacity:0; } 50% { opacity:1; } }
-
-/* question card */
-.q-card {
-  background: var(--surface);
-  border: 2px solid var(--line);
-  border-radius: 22px;
-  padding: 28px;
-  margin-bottom: 14px;
-  box-shadow: var(--shadow);
-  animation: slideUp .28s cubic-bezier(.34,1.3,.64,1);
-}
-@keyframes slideUp {
-  from { opacity:0; transform:translateY(16px) scale(.98); }
-  to   { opacity:1; transform:translateY(0) scale(1); }
-}
-
-.q-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.q-num {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(135deg, var(--pink), var(--coral));
-  border-radius: 99px;
-  padding: 3px 12px;
-  letter-spacing: .04em;
-  box-shadow: 0 2px 8px rgba(255,126,179,.35);
-}
-.q-type {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink3);
-  background: var(--bg2);
-  border-radius: 99px;
-  padding: 3px 10px;
-  border: 2px solid var(--line);
-}
-
-.q-text {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.7;
-  color: var(--ink);
-  margin-bottom: 20px;
-}
-
-.q-image {
-  width: 100%;
-  max-height: 240px;
-  object-fit: contain;
-  border-radius: 12px;
-  border: 2px solid var(--line);
-  background: var(--bg);
-  margin-bottom: 20px;
-  padding: 10px;
-  display: block;
-}
-
-/* choices */
-.choices { display: flex; flex-direction: column; gap: 9px; }
-.choice {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 13px 16px;
-  border-radius: 14px;
-  border: 2.5px solid var(--line);
-  background: var(--bg);
-  cursor: pointer;
-  transition: all .15s cubic-bezier(.34,1.2,.64,1);
-  user-select: none;
-  position: relative;
-  overflow: hidden;
-}
-.choice::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: var(--pink);
-  border-radius: 4px 0 0 4px;
-  transform: scaleY(0);
-  transition: transform .15s;
-}
-.choice:hover:not(.disabled) {
-  border-color: var(--pink);
-  background: var(--pink-l);
-  transform: translateX(4px) scale(1.01);
-  box-shadow: 0 4px 16px rgba(255,126,179,.18);
-}
-.choice:hover:not(.disabled)::before { transform: scaleY(1); }
-.choice.selected { border-color: var(--pink); background: var(--pink-l); transform: translateX(4px); }
-.choice.selected::before { transform: scaleY(1); }
-
-.choice.correct {
-  border-color: var(--mint);
-  background: var(--mint-l);
-  transform: translateX(4px);
-  box-shadow: 0 4px 16px rgba(78,203,160,.2);
-}
-.choice.correct::before { background: var(--mint); transform: scaleY(1); }
-.choice.wrong {
-  border-color: var(--red);
-  background: var(--red-l);
-}
-.choice.wrong::before { background: var(--red); transform: scaleY(1); }
-.choice.reveal {
-  border-color: var(--mint);
-  background: var(--mint-l);
-  opacity: .7;
-}
-.choice.reveal::before { background: var(--mint); transform: scaleY(1); }
-.choice.disabled { cursor: default; transform: none !important; }
-.choice.disabled:hover { box-shadow: none; }
-
-.choice-idx {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2.5px solid var(--line2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--ink3);
-  transition: all .15s;
-  margin-top: 1px;
-  background: var(--surface);
-}
-.choice.selected .choice-idx { border-color: var(--pink); color: var(--pink); background: var(--pink-l); }
-.choice.correct  .choice-idx { border-color: var(--mint); color: var(--mint-d); background: var(--mint-l); }
-.choice.wrong    .choice-idx { border-color: var(--red); color: var(--red); background: var(--red-l); }
-.choice.reveal   .choice-idx { border-color: var(--mint); color: var(--mint-d); background: var(--mint-l); }
-
-.choice-text { font-size: 14.5px; font-weight: 600; line-height: 1.55; color: var(--ink); padding-top: 4px; }
-
-/* text input */
-.text-input {
-  width: 100%;
-  border: 2.5px solid var(--line);
-  border-radius: 12px;
-  padding: 13px 15px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--ink);
-  background: var(--bg);
-  outline: none;
-  transition: all .15s;
-  resize: none;
-}
-.text-input:focus {
-  border-color: var(--pink);
-  background: var(--surface);
-  box-shadow: 0 0 0 3px rgba(255,126,179,.15);
-}
-.text-input.correct-border { border-color: var(--mint); background: var(--mint-l); }
-.text-input.wrong-border   { border-color: var(--red);  background: var(--red-l); }
-
-/* feedback */
-.feedback {
-  display: none;
-  margin-top: 14px;
-  padding: 14px 18px;
-  border-radius: 14px;
-  border: 2px solid;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.6;
-  animation: bounceIn .3s cubic-bezier(.34,1.4,.64,1);
-}
-.feedback.show { display: block; }
-.feedback.correct-fb {
-  background: var(--mint-l);
-  border-color: rgba(78,203,160,.4);
-  color: var(--mint-d);
-}
-.feedback.wrong-fb {
-  background: var(--red-l);
-  border-color: rgba(255,107,138,.35);
-  color: #c0415f;
-}
-.feedback.review-fb {
-  background: var(--lemon-l);
-  border-color: rgba(255,209,102,.5);
-  color: #8a6a00;
-}
-.feedback .ans-reveal { margin-top: 8px; font-size: 13px; opacity: .85; font-weight: 600; }
-
-/* action row */
-.q-actions {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-}
+/* ── BOOKMARKS PANEL (side drawer) ── */
+.bm-fab { position:fixed; right:20px; bottom:80px; width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,var(--amber),var(--coral)); box-shadow:0 4px 16px rgba(255,179,71,.4); display:flex; align-items:center; justify-content:center; font-size:20px; cursor:pointer; z-index:50; transition:transform .2s; }
+.bm-fab:hover { transform:scale(1.1); }
+.bm-fab .bm-badge { position:absolute; top:-4px; right:-4px; background:var(--pink); color:#fff; font-size:10px; font-weight:800; border-radius:99px; padding:1px 5px; min-width:18px; text-align:center; display:none; }
+.bm-fab .bm-badge.show { display:block; }
+.bm-panel { position:fixed; right:-340px; top:0; bottom:0; width:320px; background:var(--surface); border-left:2px solid var(--line); box-shadow:-8px 0 32px rgba(255,126,179,.12); z-index:60; transition:right .3s cubic-bezier(.4,0,.2,1); overflow-y:auto; }
+.bm-panel.open { right:0; }
+.bm-panel-head { display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:2px solid var(--line); position:sticky; top:0; background:var(--surface); z-index:1; }
+.bm-panel-title { font-family:'Fredoka',sans-serif; font-size:20px; font-weight:600; color:var(--ink); }
+.bm-close { font-size:20px; cursor:pointer; color:var(--ink3); transition:color .15s; }
+.bm-close:hover { color:var(--red); }
+.bm-empty { padding:40px 20px; text-align:center; color:var(--ink3); font-size:13.5px; font-weight:600; }
+.bm-item { padding:14px 20px; border-bottom:1px solid var(--line); transition:background .15s; }
+.bm-item:hover { background:var(--bg); }
+.bm-item-q { font-size:13.5px; font-weight:700; color:var(--ink); margin-bottom:4px; line-height:1.5; }
+.bm-item-meta { display:flex; align-items:center; gap:6px; }
+.bm-item-set  { font-size:11.5px; color:var(--ink3); font-weight:600; }
+.bm-item-del  { font-size:13px; color:var(--ink3); cursor:pointer; margin-left:auto; }
+.bm-item-del:hover { color:var(--red); }
 
 /* ══ RESULT PAGE ══ */
-#pg-result {
-  max-width: 660px;
-  margin: 0 auto;
-  padding: 40px 20px 80px;
-  text-align: center;
-}
-.result-card {
-  background: var(--surface);
-  border: 2px solid var(--line);
-  border-radius: 24px;
-  padding: 40px 36px;
-  box-shadow: var(--shadow-lg);
-  animation: bounceIn .5s cubic-bezier(.34,1.3,.64,1);
-}
-.score-emoji {
-  font-size: 60px;
-  display: block;
-  margin-bottom: 10px;
-  filter: drop-shadow(0 4px 8px rgba(255,126,179,.25));
-}
-.score-frac {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 62px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--pink);
-  margin-bottom: 4px;
-}
-.score-frac span { color: var(--ink3); font-size: 38px; }
-.score-pct {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink3);
-  margin-bottom: 6px;
-  font-family: 'Nunito', sans-serif;
-}
-.result-msg {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-.result-sub {
-  font-size: 13.5px;
-  color: var(--ink3);
-  font-weight: 600;
-  margin-bottom: 28px;
-}
+.result-card { background:var(--surface); border:2px solid var(--line); border-radius:24px; padding:36px 30px; box-shadow:var(--shadow-lg); animation:bounceIn .5s cubic-bezier(.34,1.3,.64,1); }
+.score-emoji { font-size:56px; display:block; margin-bottom:8px; filter:drop-shadow(0 4px 8px rgba(255,126,179,.25)); }
+.score-frac  { font-family:'Fredoka',sans-serif; font-size:58px; font-weight:700; line-height:1; color:var(--pink); margin-bottom:4px; }
+.score-frac span { color:var(--ink3); font-size:36px; }
+.score-pct   { font-size:13px; font-weight:700; color:var(--ink3); margin-bottom:4px; }
+.result-msg  { font-family:'Fredoka',sans-serif; font-size:24px; font-weight:600; color:var(--ink); margin-bottom:4px; }
+.result-sub  { font-size:13.5px; color:var(--ink3); font-weight:600; margin-bottom:24px; }
 
-.review-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  margin-bottom: 28px;
-  text-align: left;
-}
-.rv-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 14px;
-  border-radius: 12px;
-  background: var(--bg);
-  border: 2px solid var(--line);
-  font-size: 13px;
-  font-weight: 600;
-  transition: transform .12s;
-}
-.rv-item:hover { transform: translateX(3px); }
-.rv-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.rv-dot.ok  { background: var(--mint); box-shadow: 0 0 6px rgba(78,203,160,.5); }
-.rv-dot.err { background: var(--red);  box-shadow: 0 0 6px rgba(255,107,138,.5); }
-.rv-q { flex: 1; color: var(--ink2); }
-.rv-q strong { color: var(--ink); }
-.rv-tag {
-  font-size: 11.5px;
-  font-weight: 800;
-  padding: 3px 10px;
-  border-radius: 99px;
-  flex-shrink: 0;
-}
-.rv-tag.ok  { background: var(--mint-l); color: var(--mint-d); }
-.rv-tag.err { background: var(--red-l);  color: var(--red); }
+/* ── HISTORY DOTS ── */
+.history-wrap  { margin-bottom:24px; }
+.history-label { font-size:11px; font-weight:800; color:var(--ink3); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
+.history-strip { display:flex; gap:6px; flex-wrap:wrap; }
+.h-dot { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; border:2px solid; cursor:default; position:relative; }
+.h-dot.ok  { background:var(--mint-l); color:var(--mint-d); border-color:var(--mint); }
+.h-dot.err { background:var(--red-l);  color:var(--red);    border-color:var(--red); }
+.h-dot[title]:hover::after { content:attr(title); position:absolute; bottom:110%; left:50%; transform:translateX(-50%); background:var(--ink); color:#fff; font-size:11px; font-weight:600; padding:4px 8px; border-radius:6px; white-space:nowrap; pointer-events:none; z-index:10; }
 
-.result-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+/* ── REVIEW GRID ── */
+.review-grid { display:flex; flex-direction:column; gap:7px; margin-bottom:24px; text-align:left; }
+.rv-item { display:flex; align-items:center; gap:10px; padding:11px 14px; border-radius:12px; background:var(--bg); border:2px solid var(--line); font-size:13px; font-weight:600; transition:transform .12s; }
+.rv-item:hover { transform:translateX(3px); }
+.rv-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.rv-dot.ok  { background:var(--mint); box-shadow:0 0 6px rgba(78,203,160,.5); }
+.rv-dot.err { background:var(--red);  box-shadow:0 0 6px rgba(255,107,138,.5); }
+.rv-dot.neutral { background:var(--ink3); }
+.rv-q  { flex:1; color:var(--ink2); min-width:0; }
+.rv-q strong { color:var(--ink); }
+.rv-bm { font-size:14px; flex-shrink:0; }
+.rv-tag { font-size:11.5px; font-weight:800; padding:3px 10px; border-radius:99px; flex-shrink:0; }
+.rv-tag.ok      { background:var(--mint-l); color:var(--mint-d); }
+.rv-tag.err     { background:var(--red-l);  color:var(--red); }
+.rv-tag.neutral { background:var(--bg2);    color:var(--ink3); }
+.result-btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
 
-/* ── SAVE MODAL ── */
-#save-modal input {
-  width: 100%;
-  border: 2.5px solid var(--line);
-  border-radius: 10px;
-  padding: 11px 14px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--ink);
-  outline: none;
-  margin-bottom: 14px;
-  background: var(--bg);
-  transition: all .15s;
-}
-#save-modal input:focus {
-  border-color: var(--pink);
-  box-shadow: 0 0 0 3px rgba(255,126,179,.15);
-}
-#save-modal .modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+/* ══ MODALS ══ */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(61,44,44,.35); backdrop-filter:blur(4px); z-index:100; align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.open { display:flex; }
+.modal { background:var(--surface); border-radius:20px; max-width:600px; width:100%; max-height:82vh; overflow-y:auto; padding:28px; box-shadow:0 20px 60px rgba(255,126,179,.2),0 4px 20px rgba(0,0,0,.1); animation:popIn .22s cubic-bezier(.34,1.56,.64,1); border:2px solid var(--line); }
+@keyframes popIn { from{transform:scale(.88);opacity:0} to{transform:scale(1);opacity:1} }
+.modal h3 { font-family:'Fredoka',sans-serif; font-size:22px; font-weight:600; margin-bottom:16px; color:var(--pink-d); }
+.modal pre { background:var(--bg); border:2px solid var(--line); border-radius:10px; padding:14px; font-family:monospace; font-size:12px; line-height:1.75; overflow-x:auto; margin-bottom:16px; white-space:pre-wrap; color:var(--ink); }
+.modal .close-btn { float:right; background:var(--pink-l); border:none; border-radius:99px; padding:4px 12px; cursor:pointer; font-size:14px; font-weight:700; color:var(--pink); margin-bottom:10px; }
+.modal p  { font-size:13.5px; color:var(--ink2); margin-bottom:10px; line-height:1.65; }
+.modal ul { padding-left:20px; margin-bottom:12px; }
+.modal li { font-size:13.5px; color:var(--ink2); margin-bottom:5px; }
+.field-tag { display:inline-block; font-family:monospace; font-size:12px; background:var(--lemon-l); color:#a07000; border-radius:5px; padding:1px 7px; font-weight:700; }
+.modal-btns { display:flex; gap:8px; justify-content:flex-end; }
+.modal input { width:100%; border:2.5px solid var(--line); border-radius:10px; padding:11px 14px; font-family:'Nunito',sans-serif; font-size:14.5px; font-weight:600; color:var(--ink); outline:none; margin-bottom:14px; background:var(--bg); transition:all .15s; }
+.modal input:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,126,179,.15); }
 
-/* ── TOAST ── */
-.toast {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: var(--ink);
-  color: #fff;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13.5px;
-  font-weight: 700;
-  padding: 11px 22px;
-  border-radius: 99px;
-  box-shadow: 0 6px 24px rgba(0,0,0,.2);
-  transition: transform .28s cubic-bezier(.34,1.3,.64,1), opacity .25s;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 200;
-  white-space: nowrap;
-}
-.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+/* ══ TOAST ══ */
+.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--ink); color:#fff; font-family:'Nunito',sans-serif; font-size:13.5px; font-weight:700; padding:11px 22px; border-radius:99px; box-shadow:0 6px 24px rgba(0,0,0,.2); transition:transform .28s cubic-bezier(.34,1.3,.64,1),opacity .25s; opacity:0; pointer-events:none; z-index:200; white-space:nowrap; }
+.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 500px) {
-  .q-card, .result-card { padding: 20px 18px; }
-  .mode-group { flex-direction: column; }
-  .score-frac { font-size: 48px; }
+@media(max-width:500px) {
+  .q-card,.result-card { padding:20px 16px; }
+  .mode-group { flex-direction:column; }
+  .score-frac { font-size:46px; }
+  .bm-panel { width:100%; right:-100%; }
 }
 </style>
 </head>
@@ -773,19 +286,20 @@ textarea#json-input::placeholder { color: var(--ink3); }
 
 <!-- ══ SETUP PAGE ══ -->
 <div id="pg-setup" class="page active">
-  <div style="max-width:680px; margin:0 auto; padding:40px 20px 80px;">
+<div class="wrap">
   <div class="site-header">
     <span class="site-emoji">🌸</span>
     <span class="site-title">JSON Quiz</span>
     <div class="site-sub">paste · play · repeat ✨</div>
   </div>
 
+  <!-- JSON input -->
   <div class="section-card">
     <div class="section-head">
       <div class="section-icon">📝</div>
       <div class="section-title">문제 세트 준비</div>
     </div>
-    <p class="section-desc">아래 입력창에 문제 JSON을 붙여넣어 주세요. 객관식(<code>type: "multiple"</code>), 단답형(<code>type: "short"</code>), 서술형(<code>type: "essay"</code>)을 지원합니다.</p>
+    <p class="section-desc">아래에 문제 JSON을 붙여넣어 주세요. 객관식(<code>type:"multiple"</code>), 단답형(<code>type:"short"</code>), 서술형(<code>type:"essay"</code>) 지원.</p>
     <textarea id="json-input" placeholder='[
   {
     "type": "multiple",
@@ -802,6 +316,23 @@ textarea#json-input::placeholder { color: var(--ink3); }
     </div>
   </div>
 
+  <!-- Image upload -->
+  <div class="section-card">
+    <div class="section-head">
+      <div class="section-icon">🖼️</div>
+      <div class="section-title">이미지 업로드 <span style="font-size:12px;font-weight:600;color:var(--ink3)">선택사항</span></div>
+    </div>
+    <p class="section-desc">JSON의 <code>"image"</code> 필드에 파일명(예: <code>"q1.png"</code>)을 쓰고 해당 이미지를 여기에 올리면 자동 연결돼요.</p>
+    <div id="img-drop-zone" onclick="document.getElementById('img-file-input').click()">
+      <div class="drop-icon">📁</div>
+      <div class="drop-main">이미지를 드래그하거나 클릭해서 올려주세요</div>
+      <div class="drop-sub">PNG · JPG · GIF · WebP · 여러 파일 동시 가능</div>
+    </div>
+    <input type="file" id="img-file-input" accept="image/*" multiple style="display:none" onchange="handleImageFiles(this.files)">
+    <div id="img-preview-list"></div>
+  </div>
+
+  <!-- Saved sets -->
   <div class="section-card">
     <div class="section-head">
       <div class="section-icon">📚</div>
@@ -810,12 +341,22 @@ textarea#json-input::placeholder { color: var(--ink3); }
     <div class="saved-list" id="saved-list"></div>
   </div>
 
+  <!-- Options + mode + start -->
   <div class="section-card">
     <div class="section-head">
       <div class="section-icon">⚙️</div>
-      <div class="section-title">채점 방식 선택</div>
+      <div class="section-title">퀴즈 설정</div>
     </div>
-    <p class="section-desc">문제를 풀 때의 채점 방식을 선택하세요.</p>
+
+    <p class="section-desc" style="margin-bottom:10px">문제 순서</p>
+    <div class="options-row" style="margin-bottom:18px">
+      <div class="opt-toggle on" id="tog-order-seq" onclick="setOrder('seq')">📋 처음부터 순서대로</div>
+      <div class="opt-toggle"   id="tog-order-rand" onclick="setOrder('rand')">🔀 랜덤 순서</div>
+      <div class="opt-toggle"   id="tog-order-wrong" onclick="setOrder('wrong')">❌ 오답만 모아서</div>
+      <div class="opt-toggle"   id="tog-order-bm" onclick="setOrder('bm')">🔖 북마크만</div>
+    </div>
+
+    <p class="section-desc" style="margin-bottom:10px">채점 방식</p>
     <div class="mode-group" style="margin-bottom:20px">
       <div class="mode-opt selected" id="mode-instant" onclick="selectMode('instant')">
         <span class="mode-icon">⚡</span>
@@ -828,26 +369,30 @@ textarea#json-input::placeholder { color: var(--ink3); }
         <div class="mode-sub">전부 푼 뒤 결과에서 확인</div>
       </div>
     </div>
+
     <button class="btn btn-primary btn-start" onclick="startQuiz()">🚀 문제 시작!</button>
   </div>
-  </div>
+</div>
 </div>
 
 <!-- ══ QUIZ PAGE ══ -->
 <div id="pg-quiz" class="page">
-  <div id="pg-quiz-inner" style="max-width:660px; margin:0 auto; padding:28px 20px 80px;">
+<div class="wrap-md">
   <div class="quiz-header">
     <div class="quiz-set-name" id="quiz-set-name"></div>
-    <div class="quiz-counter" id="quiz-counter"></div>
+    <div class="quiz-counter"  id="quiz-counter"></div>
   </div>
   <div class="progress-track">
     <div class="progress-fill" id="progress-fill" style="width:0%"></div>
   </div>
 
   <div class="q-card" id="q-card">
-    <div class="q-badge">
-      <span class="q-num" id="q-num">Q1</span>
-      <span class="q-type" id="q-type">객관식</span>
+    <div class="q-top">
+      <div class="q-badge">
+        <span class="q-num"  id="q-num">Q1</span>
+        <span class="q-type" id="q-type">객관식</span>
+      </div>
+      <div class="bookmark-btn" id="bookmark-btn" onclick="toggleBookmark()" title="북마크">🔖</div>
     </div>
     <p class="q-text" id="q-text"></p>
     <img class="q-image" id="q-image" src="" alt="" style="display:none">
@@ -856,39 +401,63 @@ textarea#json-input::placeholder { color: var(--ink3); }
   </div>
 
   <div class="q-actions">
-    <button class="btn btn-ghost" onclick="goSetup()">← 처음으로</button>
-    <button class="btn btn-primary" id="btn-submit" onclick="submitAnswer()">제출 ✓</button>
-    <button class="btn btn-primary" id="btn-next" onclick="nextQ()" style="display:none">다음 문제 →</button>
-    <button class="btn btn-accent" id="btn-result" onclick="showResult()" style="display:none">결과 보기 🎉</button>
+    <button class="btn btn-ghost"    onclick="goSetup()">← 처음으로</button>
+    <button class="btn btn-primary"  id="btn-submit" onclick="submitAnswer()">제출 ✓</button>
+    <button class="btn btn-primary"  id="btn-next"   onclick="nextQ()" style="display:none">다음 →</button>
+    <button class="btn btn-accent"   id="btn-result" onclick="showResult()" style="display:none">결과 🎉</button>
   </div>
-  </div>
+</div>
+
+<!-- bookmark FAB -->
+<div class="bm-fab" onclick="toggleBmPanel()" title="북마크 목록">
+  🔖<span class="bm-badge" id="bm-fab-badge"></span>
+</div>
 </div>
 
 <!-- ══ RESULT PAGE ══ -->
 <div id="pg-result" class="page">
-  <div style="max-width:660px; margin:0 auto; padding:40px 20px 80px; text-align:center;">
+<div class="wrap-md" style="text-align:center">
   <div class="result-card">
     <span class="score-emoji" id="score-emoji">🎉</span>
     <div class="score-frac" id="score-frac">–</div>
-    <div class="score-pct" id="score-pct"></div>
+    <div class="score-pct"  id="score-pct"></div>
     <div class="result-msg" id="result-msg"></div>
     <div class="result-sub" id="result-sub"></div>
-    <div class="review-grid" id="review-grid"></div>
+
+    <!-- history dots -->
+    <div class="history-wrap" id="history-wrap" style="display:none">
+      <div class="history-label">📊 이전 풀이 기록</div>
+      <div class="history-strip" id="history-strip"></div>
+    </div>
+
+    <div class="review-grid"  id="review-grid"></div>
+
     <div class="result-btns">
-      <button class="btn" onclick="retryWrong()" id="btn-retry-wrong">🔁 틀린 문제만 다시 풀기</button>
+      <button class="btn" id="btn-retry-wrong" onclick="retryWrong()">❌ 오답만 다시 풀기</button>
+      <button class="btn" id="btn-retry-bm"    onclick="retryBookmarks()">🔖 북마크만 풀기</button>
       <button class="btn" onclick="retryAll()">🔄 전체 재테스트</button>
       <button class="btn btn-primary" onclick="goSetup()">🏠 처음으로</button>
     </div>
   </div>
-  </div>
 </div>
+</div>
+
+<!-- ══ BOOKMARK PANEL ══ -->
+<div class="bm-panel" id="bm-panel">
+  <div class="bm-panel-head">
+    <div class="bm-panel-title">🔖 북마크</div>
+    <div class="bm-close" onclick="toggleBmPanel()">✕</div>
+  </div>
+  <div id="bm-list"></div>
+</div>
+<div id="bm-overlay" style="display:none;position:fixed;inset:0;z-index:55" onclick="toggleBmPanel()"></div>
 
 <!-- ══ GUIDE MODAL ══ -->
 <div class="modal-overlay" id="guide-modal" onclick="closeGuide(event)">
   <div class="modal">
     <button class="close-btn" onclick="closeGuide()">✕ 닫기</button>
     <h3>📋 JSON 형식 가이드</h3>
-    <p>문제 배열(<code>[ ]</code>) 안에 각 문제 객체를 넣어주세요. 지원하는 <span class="field-tag">type</span>은 세 가지입니다.</p>
+    <p>문제 배열(<code>[ ]</code>) 안에 각 문제 객체를 넣어주세요.</p>
     <p><strong>① 객관식</strong> <code>type: "multiple"</code></p>
     <pre>{
   "type": "multiple",
@@ -913,11 +482,11 @@ textarea#json-input::placeholder { color: var(--ink3); }
 }</pre>
     <ul>
       <li><span class="field-tag">question</span> 문제 텍스트 (필수)</li>
-      <li><span class="field-tag">type</span> "multiple" / "short" / "essay" (기본값: "multiple")</li>
+      <li><span class="field-tag">type</span> "multiple" / "short" / "essay"</li>
       <li><span class="field-tag">choices</span> 보기 배열 (객관식 필수)</li>
       <li><span class="field-tag">answer</span> 객관식: 0-based 인덱스 / 나머지: 정답 문자열</li>
       <li><span class="field-tag">explanation</span> 해설 (선택)</li>
-      <li><span class="field-tag">image</span> 이미지 URL 또는 base64 data URI (선택)</li>
+      <li><span class="field-tag">image</span> 파일명, URL, 또는 base64 (선택)</li>
     </ul>
   </div>
 </div>
@@ -926,7 +495,7 @@ textarea#json-input::placeholder { color: var(--ink3); }
 <div class="modal-overlay" id="save-modal" onclick="closeSaveModal(event)">
   <div class="modal" style="max-width:400px">
     <h3>💾 문제 세트 저장</h3>
-    <p style="margin-bottom:16px">제목을 입력하지 않으면 기본 제목으로 저장돼요.</p>
+    <p style="margin-bottom:14px">제목을 입력하지 않으면 기본 제목으로 저장돼요.</p>
     <input type="text" id="save-title-input" placeholder="세트 제목 (예: Chapter 1 퀴즈)">
     <div class="modal-btns">
       <button class="btn" onclick="closeSaveModal()">취소</button>
@@ -935,81 +504,133 @@ textarea#json-input::placeholder { color: var(--ink3); }
   </div>
 </div>
 
-<!-- ══ TOAST ══ -->
 <div class="toast" id="toast"></div>
 
 <script>
+// ══════════════════════════════════════════════
+//  CONSTANTS & STATE
+// ══════════════════════════════════════════════
 const LABELS = ['A','B','C','D','E','F','G','H'];
-const STORAGE_KEY = 'jq_saved_sets';
+const SK      = 'jq_saved_sets';   // localStorage key for sets
+const BK      = 'jq_bookmarks';    // localStorage key for bookmarks
 
-let questions = [], queueIdx = [], curPos = 0;
-let mode = 'instant', answered = false, results = [], setName = '';
-let savedSets = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+let questions    = [];
+let queueIdx     = [];   // indices into questions
+let curPos       = 0;
+let mode         = 'instant';
+let orderMode    = 'seq';   // 'seq' | 'rand' | 'wrong' | 'bm'
+let answered     = false;
+let results      = [];
+let setName      = '';
+let currentSetId = null;  // id of currently playing set (for history)
 
+let savedSets    = JSON.parse(localStorage.getItem(SK) || '[]');
+let bookmarks    = JSON.parse(localStorage.getItem(BK) || '[]');
+// bookmarks: [{setId, qi, question, setName}]
+
+let uploadedImages = {};
+
+// ══════════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════════
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
 }
-
 function toast(msg, dur=2200) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), dur);
 }
-
 function parseJSON(str) {
   try {
     const data = JSON.parse(str.trim());
     if (!Array.isArray(data)) throw new Error('배열 형식이어야 합니다.');
-    if (data.length === 0) throw new Error('문제가 비어있습니다.');
+    if (!data.length) throw new Error('문제가 비어있습니다.');
     return data;
   } catch(e) { alert('JSON 파싱 오류: ' + e.message); return null; }
 }
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function shuffleArr(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function saveSets() { localStorage.setItem(SK, JSON.stringify(savedSets)); }
+function saveBM()   { localStorage.setItem(BK, JSON.stringify(bookmarks)); }
 
+// ══════════════════════════════════════════════
+//  ORDER MODE
+// ══════════════════════════════════════════════
+function setOrder(m) {
+  orderMode = m;
+  ['seq','rand','wrong','bm'].forEach(k => {
+    document.getElementById('tog-order-' + k).classList.toggle('on', k === m);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  MODE (instant / end)
+// ══════════════════════════════════════════════
 function selectMode(m) {
   mode = m;
-  document.getElementById('mode-instant').classList.toggle('selected', m === 'instant');
-  document.getElementById('mode-end').classList.toggle('selected', m === 'end');
+  document.getElementById('mode-instant').classList.toggle('selected', m==='instant');
+  document.getElementById('mode-end').classList.toggle('selected', m==='end');
 }
 
-function openGuide() { document.getElementById('guide-modal').classList.add('open'); }
-function closeGuide(e) {
-  if (!e || e.target === document.getElementById('guide-modal'))
-    document.getElementById('guide-modal').classList.remove('open');
+// ══════════════════════════════════════════════
+//  IMAGE UPLOAD
+// ══════════════════════════════════════════════
+function handleImageFiles(files) {
+  Array.from(files).forEach(file => {
+    const r = new FileReader();
+    r.onload = e => { uploadedImages[file.name] = e.target.result; renderImageChips(); };
+    r.readAsDataURL(file);
+  });
 }
+function renderImageChips() {
+  document.getElementById('img-preview-list').innerHTML =
+    Object.entries(uploadedImages).map(([name,src]) => `
+      <div class="img-chip">
+        <img src="${src}" alt="${name}">
+        <span class="chip-name">${escHtml(name)}</span>
+        <span class="chip-del" onclick="removeImage('${escHtml(name)}')">×</span>
+      </div>`).join('');
+}
+function removeImage(name) { delete uploadedImages[name]; renderImageChips(); }
+(function(){
+  const dz = document.getElementById('img-drop-zone');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+  dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag-over'); handleImageFiles(e.dataTransfer.files); });
+})();
 
-function openSaveModal() {
-  const raw = document.getElementById('json-input').value.trim();
-  if (!raw) { toast('💡 저장할 JSON이 없습니다.'); return; }
-  if (!parseJSON(raw)) return;
-  document.getElementById('save-title-input').value = '';
-  document.getElementById('save-modal').classList.add('open');
-}
-function closeSaveModal(e) {
-  if (!e || e.target === document.getElementById('save-modal'))
-    document.getElementById('save-modal').classList.remove('open');
-}
-function confirmSave() {
-  const raw = document.getElementById('json-input').value.trim();
-  const title = document.getElementById('save-title-input').value.trim() || '세트 ' + (savedSets.length + 1);
-  const qs = parseJSON(raw); if (!qs) return;
-  savedSets.unshift({ id: Date.now(), title, json: raw, count: qs.length });
-  if (savedSets.length > 30) savedSets.pop();
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSets));
-  closeSaveModal(); renderSavedList(); toast('✅ 저장되었습니다!');
-}
-
+// ══════════════════════════════════════════════
+//  SAVED SETS + HISTORY
+// ══════════════════════════════════════════════
 function renderSavedList() {
   const el = document.getElementById('saved-list');
-  if (savedSets.length === 0) { el.innerHTML = '<div class="empty-note">아직 저장된 세트가 없어요 🌱</div>'; return; }
-  el.innerHTML = savedSets.map((s, i) => `
-    <div class="saved-item" onclick="loadSavedSet(${i})">
+  if (!savedSets.length) { el.innerHTML = '<div class="empty-note">아직 저장된 세트가 없어요 🌱</div>'; return; }
+  el.innerHTML = savedSets.map((s,i) => {
+    const hist = s.history || [];
+    const best = hist.length ? Math.max(...hist.map(h => h.pct)) : null;
+    return `<div class="saved-item" onclick="loadSavedSet(${i})">
       <span class="s-title">${escHtml(s.title)}</span>
-      <span class="s-count">${s.count}문제</span>
-      <span class="s-del" onclick="deleteSavedSet(event,${i})" title="삭제">×</span>
-    </div>`).join('');
+      <div class="s-meta">
+        <span class="s-count">${s.count}문제</span>
+        ${best !== null ? `<span class="s-best">최고 ${best}%</span>` : ''}
+        ${hist.length ? `<span class="s-plays">${hist.length}회</span>` : ''}
+        <span class="s-del" onclick="deleteSavedSet(event,${i})" title="삭제">×</span>
+      </div>
+    </div>`;
+  }).join('');
 }
 function loadSavedSet(i) {
   document.getElementById('json-input').value = savedSets[i].json;
@@ -1018,11 +639,106 @@ function loadSavedSet(i) {
 function deleteSavedSet(e, i) {
   e.stopPropagation();
   if (!confirm('삭제할까요?')) return;
-  savedSets.splice(i, 1);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSets));
-  renderSavedList(); toast('🗑️ 삭제되었습니다.');
+  savedSets.splice(i,1); saveSets(); renderSavedList(); toast('🗑️ 삭제되었습니다.');
+}
+function openSaveModal() {
+  const raw = document.getElementById('json-input').value.trim();
+  if (!raw) { toast('💡 저장할 JSON이 없습니다.'); return; }
+  if (!parseJSON(raw)) return;
+  document.getElementById('save-title-input').value = '';
+  document.getElementById('save-modal').classList.add('open');
+}
+function closeSaveModal(e) {
+  if (!e || e.target===document.getElementById('save-modal'))
+    document.getElementById('save-modal').classList.remove('open');
+}
+function confirmSave() {
+  const raw   = document.getElementById('json-input').value.trim();
+  const title = document.getElementById('save-title-input').value.trim() || '세트 '+(savedSets.length+1);
+  const qs = parseJSON(raw); if (!qs) return;
+  savedSets.unshift({ id: Date.now(), title, json: raw, count: qs.length, history: [] });
+  if (savedSets.length > 30) savedSets.pop();
+  saveSets(); closeSaveModal(); renderSavedList(); toast('✅ 저장되었습니다!');
 }
 
+// Save play result into set history
+function recordHistory(setId, correct, total) {
+  if (!setId) return;
+  const s = savedSets.find(s => s.id === setId);
+  if (!s) return;
+  if (!s.history) s.history = [];
+  const pct = total > 0 ? Math.round(correct/total*100) : 100;
+  s.history.push({ date: Date.now(), correct, total, pct });
+  if (s.history.length > 20) s.history.shift();
+  saveSets();
+}
+
+// ══════════════════════════════════════════════
+//  BOOKMARKS
+// ══════════════════════════════════════════════
+function toggleBookmark() {
+  const qi     = queueIdx[curPos];
+  const q      = questions[qi];
+  const bmKey  = `${currentSetId}_${qi}`;
+  const idx    = bookmarks.findIndex(b => b.key === bmKey);
+  const btn    = document.getElementById('bookmark-btn');
+  if (idx >= 0) {
+    bookmarks.splice(idx,1);
+    btn.classList.remove('active');
+    btn.style.opacity = '.4';
+    toast('🔖 북마크 해제');
+  } else {
+    bookmarks.push({ key: bmKey, setId: currentSetId, qi, question: q.question, setName });
+    btn.classList.add('active');
+    btn.style.opacity = '1';
+    toast('🔖 북마크 추가!');
+  }
+  saveBM();
+  updateBmFab();
+  renderBmPanel();
+}
+function isBookmarked(qi) {
+  return bookmarks.some(b => b.key === `${currentSetId}_${qi}`);
+}
+function updateBmFab() {
+  const badge = document.getElementById('bm-fab-badge');
+  const n = bookmarks.filter(b => b.setId === currentSetId).length;
+  badge.textContent = n;
+  badge.classList.toggle('show', n > 0);
+}
+function toggleBmPanel() {
+  const panel = document.getElementById('bm-panel');
+  const ov    = document.getElementById('bm-overlay');
+  const open  = panel.classList.toggle('open');
+  ov.style.display = open ? 'block' : 'none';
+  if (open) renderBmPanel();
+}
+function renderBmPanel() {
+  const el = document.getElementById('bm-list');
+  const bms = bookmarks.filter(b => b.setId === currentSetId);
+  if (!bms.length) { el.innerHTML = '<div class="bm-empty">북마크한 문제가 없어요<br>🔖 버튼을 눌러 추가해보세요!</div>'; return; }
+  el.innerHTML = bms.map((b,i) => `
+    <div class="bm-item">
+      <div class="bm-item-q">${escHtml(b.question.length>80 ? b.question.slice(0,80)+'…' : b.question)}</div>
+      <div class="bm-item-meta">
+        <span class="bm-item-set">${escHtml(b.setName)}</span>
+        <span class="bm-item-del" onclick="removeBm('${b.key}')">✕</span>
+      </div>
+    </div>`).join('');
+}
+function removeBm(key) {
+  bookmarks = bookmarks.filter(b => b.key !== key);
+  saveBM(); updateBmFab(); renderBmPanel(); toast('🗑️ 북마크 삭제');
+}
+
+// ══════════════════════════════════════════════
+//  GUIDE / COPY EXAMPLE
+// ══════════════════════════════════════════════
+function openGuide() { document.getElementById('guide-modal').classList.add('open'); }
+function closeGuide(e) {
+  if (!e || e.target===document.getElementById('guide-modal'))
+    document.getElementById('guide-modal').classList.remove('open');
+}
 const EXAMPLE_JSON = `[
   {
     "type": "multiple",
@@ -1035,7 +751,7 @@ const EXAMPLE_JSON = `[
     "type": "short",
     "question": "What is the chemical formula for water?",
     "answer": "H2O",
-    "explanation": "수소 2개 + 산소 1개로 구성됩니다."
+    "explanation": "수소 2개 + 산소 1개."
   },
   {
     "type": "essay",
@@ -1048,23 +764,71 @@ function copyExample() {
   navigator.clipboard.writeText(EXAMPLE_JSON).then(() => toast('📎 예시 JSON이 복사되었습니다!'));
 }
 
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// ══════════════════════════════════════════════
+//  START QUIZ
+// ══════════════════════════════════════════════
+function startQuiz(q_override, name_override, setId_override) {
+  // Resolve questions
+  let parsed;
+  if (q_override) {
+    parsed = q_override;
+  } else {
+    const raw = document.getElementById('json-input').value.trim();
+    parsed = parseJSON(raw);
+    if (!parsed) return;
+    // Inject uploaded images
+    if (Object.keys(uploadedImages).length) {
+      parsed.forEach(q => { if (q.image && uploadedImages[q.image]) q.image = uploadedImages[q.image]; });
+    }
+  }
+
+  questions    = parsed;
+  setName      = name_override || '✨ Quiz';
+  currentSetId = setId_override || null;
+
+  // Find set id from saved sets if not provided
+  if (!currentSetId) {
+    const raw = document.getElementById('json-input').value.trim();
+    const match = savedSets.find(s => s.json === raw);
+    if (match) currentSetId = match.id;
+  }
+
+  // Build queue based on orderMode
+  let allIdx = questions.map((_,i) => i);
+
+  if (orderMode === 'rand') {
+    allIdx = shuffleArr(allIdx);
+  } else if (orderMode === 'wrong') {
+    // Get wrong qi from last session — stored in wrongSet
+    if (wrongSet && wrongSet.length) {
+      allIdx = wrongSet;
+    } else {
+      toast('❌ 오답 기록이 없어요. 먼저 한 번 풀어보세요!'); return;
+    }
+  } else if (orderMode === 'bm') {
+    const bmQis = bookmarks.filter(b => b.setId === currentSetId).map(b => b.qi);
+    if (!bmQis.length) { toast('🔖 북마크한 문제가 없어요!'); return; }
+    allIdx = bmQis;
+  }
+
+  queueIdx = allIdx;
+  curPos   = 0;
+  results  = new Array(questions.length).fill(null);
+
+  showPage('pg-quiz');
+  updateBmFab();
+  renderQ();
 }
 
-function startQuiz(q_override, name_override) {
-  const raw = document.getElementById('json-input').value.trim();
-  const parsed = q_override || parseJSON(raw);
-  if (!parsed) return;
-  questions = parsed; queueIdx = questions.map((_,i)=>i);
-  curPos = 0; results = new Array(questions.length).fill(null);
-  setName = name_override || '✨ Quiz';
-  showPage('pg-quiz'); renderQ();
-}
-
+// ══════════════════════════════════════════════
+//  RENDER QUESTION
+// ══════════════════════════════════════════════
 function renderQ() {
   answered = false;
-  const qi = queueIdx[curPos], q = questions[qi], tot = queueIdx.length;
+  const qi  = queueIdx[curPos];
+  const q   = questions[qi];
+  const tot = queueIdx.length;
+
   document.getElementById('quiz-set-name').textContent = setName;
   document.getElementById('quiz-counter').textContent  = `${curPos+1} / ${tot}`;
   document.getElementById('progress-fill').style.width = (curPos/tot*100) + '%';
@@ -1072,10 +836,18 @@ function renderQ() {
   const typeMap = { multiple:'객관식', short:'단답형', essay:'서술형' };
   document.getElementById('q-type').textContent = typeMap[q.type||'multiple'] || '객관식';
   document.getElementById('q-text').textContent = q.question;
-  const imgEl = document.getElementById('q-image');
-  if (q.image) { imgEl.src = q.image; imgEl.style.display = 'block'; }
-  else { imgEl.style.display = 'none'; imgEl.src = ''; }
 
+  // image
+  const imgEl = document.getElementById('q-image');
+  if (q.image) { imgEl.src = q.image; imgEl.style.display='block'; }
+  else { imgEl.style.display='none'; imgEl.src=''; }
+
+  // bookmark state
+  const bmBtn = document.getElementById('bookmark-btn');
+  if (isBookmarked(qi)) { bmBtn.classList.add('active'); bmBtn.style.opacity='1'; }
+  else { bmBtn.classList.remove('active'); bmBtn.style.opacity='.4'; }
+
+  // body
   const body = document.getElementById('q-body');
   body.innerHTML = '';
   const type = q.type || 'multiple';
@@ -1083,143 +855,200 @@ function renderQ() {
   if (type === 'multiple') {
     const wrap = document.createElement('div');
     wrap.className = 'choices';
-    (q.choices||[]).forEach((text, ci) => {
+    (q.choices||[]).forEach((text,ci) => {
       const d = document.createElement('div');
       d.className = 'choice'; d.dataset.ci = ci;
       d.innerHTML = `<div class="choice-idx">${LABELS[ci]}</div><div class="choice-text">${escHtml(text)}</div>`;
-      d.addEventListener('click', () => pickChoice(d, ci, qi));
+      d.addEventListener('click', () => pickChoice(d,ci,qi));
       wrap.appendChild(d);
     });
     body.appendChild(wrap);
   } else if (type === 'short') {
     const inp = document.createElement('input');
-    inp.type = 'text'; inp.className = 'text-input';
-    inp.placeholder = '정답을 입력하세요...'; inp.id = 'short-input';
+    inp.type='text'; inp.className='text-input'; inp.placeholder='정답을 입력하세요...'; inp.id='short-input';
     inp.addEventListener('keydown', e => { if(e.key==='Enter') submitAnswer(); });
     body.appendChild(inp);
   } else {
     const ta = document.createElement('textarea');
-    ta.className = 'text-input'; ta.rows = 5;
-    ta.placeholder = '답을 서술하세요...'; ta.id = 'short-input';
+    ta.className='text-input'; ta.rows=5; ta.placeholder='답을 서술하세요...'; ta.id='short-input';
     body.appendChild(ta);
   }
 
+  // feedback
   const fb = document.getElementById('q-feedback');
-  fb.className = 'feedback'; fb.innerHTML = '';
+  fb.className='feedback'; fb.innerHTML='';
+
   document.getElementById('btn-submit').style.display = 'inline-flex';
   document.getElementById('btn-next').style.display   = 'none';
   document.getElementById('btn-result').style.display = 'none';
 
   const card = document.getElementById('q-card');
-  card.style.animation = 'none';
-  requestAnimationFrame(() => { card.style.animation = ''; });
+  card.style.animation='none';
+  requestAnimationFrame(() => { card.style.animation=''; });
 }
 
-function pickChoice(el, ci, qi) {
+// ══════════════════════════════════════════════
+//  PICK CHOICE
+// ══════════════════════════════════════════════
+function pickChoice(el,ci,qi) {
   if (answered && mode==='instant') return;
   document.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-  if (mode === 'instant') submitAnswer();
+  if (mode==='instant') submitAnswer();
 }
 
+// ══════════════════════════════════════════════
+//  SUBMIT
+// ══════════════════════════════════════════════
 function submitAnswer() {
   if (answered) return;
-  const qi = queueIdx[curPos], q = questions[qi], type = q.type||'multiple';
-  const fb = document.getElementById('q-feedback');
-  let ok = false, chosen = null;
+  const qi   = queueIdx[curPos];
+  const q    = questions[qi];
+  const type = q.type||'multiple';
+  const fb   = document.getElementById('q-feedback');
+  let ok=false, chosen=null;
 
-  if (type === 'multiple') {
+  if (type==='multiple') {
     const sel = document.querySelector('.choice.selected');
     if (!sel) { toast('💡 선택지를 선택해주세요!'); return; }
-    chosen = parseInt(sel.dataset.ci); ok = chosen === q.answer;
+    chosen = parseInt(sel.dataset.ci);
+    ok     = chosen === q.answer;
     document.querySelectorAll('.choice').forEach(c => {
       c.classList.add('disabled');
       const ci = parseInt(c.dataset.ci);
-      if (ci === q.answer) { c.classList.remove('selected'); c.classList.add(ok && ci===chosen ? 'correct' : 'reveal'); }
+      if (ci===q.answer) { c.classList.remove('selected'); c.classList.add(ok&&ci===chosen?'correct':'reveal'); }
     });
-    sel.classList.remove('selected','reveal'); sel.classList.add(ok ? 'correct' : 'wrong');
-    if (mode === 'instant') {
-      fb.className = 'feedback show ' + (ok ? 'correct-fb' : 'wrong-fb');
+    sel.classList.remove('selected','reveal'); sel.classList.add(ok?'correct':'wrong');
+    if (mode==='instant') {
+      fb.className='feedback show '+(ok?'correct-fb':'wrong-fb');
       fb.innerHTML = ok
-        ? `<strong>🎉 정답!</strong>${q.explanation ? '<div class="ans-reveal">💡 '+escHtml(q.explanation)+'</div>' : ''}`
-        : `<strong>😢 오답.</strong> 정답: <strong>${LABELS[q.answer]}. ${escHtml(q.choices[q.answer])}</strong>${q.explanation ? '<div class="ans-reveal">💡 '+escHtml(q.explanation)+'</div>' : ''}`;
+        ? `<strong>🎉 정답!</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`
+        : `<strong>😢 오답.</strong> 정답: <strong>${LABELS[q.answer]}. ${escHtml(q.choices[q.answer])}</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`;
     }
-  } else if (type === 'short') {
+  } else if (type==='short') {
     const inp = document.getElementById('short-input');
     if (!inp||!inp.value.trim()) { toast('💡 답을 입력해주세요!'); return; }
-    chosen = inp.value.trim(); ok = chosen.toLowerCase().trim() === String(q.answer).toLowerCase().trim();
-    inp.classList.add(ok ? 'correct-border' : 'wrong-border'); inp.disabled = true;
-    if (mode === 'instant') {
-      fb.className = 'feedback show ' + (ok ? 'correct-fb' : 'wrong-fb');
+    chosen = inp.value.trim();
+    ok     = chosen.toLowerCase().trim()===String(q.answer).toLowerCase().trim();
+    inp.classList.add(ok?'correct-border':'wrong-border'); inp.disabled=true;
+    if (mode==='instant') {
+      fb.className='feedback show '+(ok?'correct-fb':'wrong-fb');
       fb.innerHTML = ok
-        ? `<strong>🎉 정답!</strong>${q.explanation ? '<div class="ans-reveal">💡 '+escHtml(q.explanation)+'</div>' : ''}`
-        : `<strong>😢 오답.</strong> 정답: <strong>${escHtml(String(q.answer))}</strong>${q.explanation ? '<div class="ans-reveal">💡 '+escHtml(q.explanation)+'</div>' : ''}`;
+        ? `<strong>🎉 정답!</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`
+        : `<strong>😢 오답.</strong> 정답: <strong>${escHtml(String(q.answer))}</strong>${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`;
     }
   } else {
     const inp = document.getElementById('short-input');
     if (!inp||!inp.value.trim()) { toast('💡 답을 작성해주세요!'); return; }
-    chosen = inp.value.trim(); ok = true; inp.disabled = true;
-    if (mode === 'instant') {
-      fb.className = 'feedback show review-fb';
-      fb.innerHTML = `<strong>📝 모범 답안:</strong> ${escHtml(String(q.answer))}${q.explanation ? '<div class="ans-reveal">💡 '+escHtml(q.explanation)+'</div>' : ''}`;
+    chosen=inp.value.trim(); ok=true; inp.disabled=true;
+    if (mode==='instant') {
+      fb.className='feedback show review-fb';
+      fb.innerHTML=`<strong>📝 모범 답안:</strong> ${escHtml(String(q.answer))}${q.explanation?`<div class="ans-reveal">💡 ${escHtml(q.explanation)}</div>`:''}`;
     }
   }
 
-  answered = true; results[qi] = { qi, chosen, ok, type };
-  document.getElementById('btn-submit').style.display = 'none';
-  const isLast = curPos === queueIdx.length - 1;
-  if (isLast) document.getElementById('btn-result').style.display = 'inline-flex';
-  else         document.getElementById('btn-next').style.display   = 'inline-flex';
+  answered=true; results[qi]={qi,chosen,ok,type};
+  document.getElementById('btn-submit').style.display='none';
+  const isLast = curPos===queueIdx.length-1;
+  document.getElementById(isLast?'btn-result':'btn-next').style.display='inline-flex';
 }
 
 function nextQ() { curPos++; renderQ(); }
 
+// ══════════════════════════════════════════════
+//  RESULT
+// ══════════════════════════════════════════════
+let wrongSet = [];  // stored wrong qi after each session
+
 function showResult() {
   showPage('pg-result');
-  const total    = queueIdx.length;
-  const essayQs  = queueIdx.filter(qi => (questions[qi].type||'multiple')==='essay');
   const nonEssay = queueIdx.filter(qi => (questions[qi].type||'multiple')!=='essay');
   const correct  = nonEssay.filter(qi => results[qi]?.ok).length;
   const scoreOf  = nonEssay.length;
-  const pct      = scoreOf > 0 ? Math.round(correct/scoreOf*100) : 100;
+  const pct      = scoreOf>0 ? Math.round(correct/scoreOf*100) : 100;
+
+  // Store wrong qi
+  wrongSet = nonEssay.filter(qi => !results[qi]?.ok);
+
+  // Record history
+  recordHistory(currentSetId, correct, scoreOf);
 
   document.getElementById('score-frac').innerHTML = `${correct}<span>/${scoreOf}</span>`;
-  document.getElementById('score-pct').textContent = `정답률 ${pct}%${essayQs.length ? ' (서술형 제외)' : ''}`;
+  document.getElementById('score-pct').textContent = `정답률 ${pct}%`;
 
-  const tiers = [[90,['🎉','완벽해요!','최고예요 ✨']], [70,['🌟','잘했어요!','꾸준히 하면 완벽해질 거예요!']], [50,['🌱','아쉬워요...','조금만 더 공부해봐요!']], [0,['📚','힘내요!','다시 도전해보세요 💪']]];
-  const [emoji, msg, sub] = tiers.find(([t]) => pct>=t)[1];
+  const tiers = [[90,['🎉','완벽해요!']],[70,['🌟','잘했어요!']],[50,['🌱','아쉬워요...']],[0,['📚','힘내요!']]];
+  const [emoji,msg] = tiers.find(([t])=>pct>=t)[1];
   document.getElementById('score-emoji').textContent = emoji;
   document.getElementById('result-msg').textContent  = msg;
-  document.getElementById('result-sub').textContent  = sub;
+  document.getElementById('result-sub').textContent  = `${queueIdx.length}문제 중 ${correct}개 정답`;
 
+  // History dots
+  const s = currentSetId ? savedSets.find(s=>s.id===currentSetId) : null;
+  const hist = s?.history || [];
+  const histWrap = document.getElementById('history-wrap');
+  const histStrip = document.getElementById('history-strip');
+  if (hist.length > 1) {
+    histWrap.style.display='block';
+    const fmt = d => new Date(d).toLocaleDateString('ko-KR',{month:'short',day:'numeric'});
+    histStrip.innerHTML = hist.slice(-10).map(h =>
+      `<div class="h-dot ${h.pct>=70?'ok':'err'}" title="${fmt(h.date)} ${h.pct}%">${h.pct}%</div>`
+    ).join('');
+  } else {
+    histWrap.style.display='none';
+  }
+
+  // Review grid
   const grid = document.getElementById('review-grid');
-  grid.innerHTML = queueIdx.map((qi, pos) => {
-    const q = questions[qi], res = results[qi], ok = res?.ok;
+  grid.innerHTML = queueIdx.map((qi,pos) => {
+    const q   = questions[qi];
+    const res = results[qi];
+    const ok  = res?.ok;
     const isEssay = (q.type||'multiple')==='essay';
-    const shortQ = q.question.length > 55 ? q.question.slice(0,55)+'…' : q.question;
+    const shortQ = q.question.length>55 ? q.question.slice(0,55)+'…' : q.question;
+    const bm = isBookmarked(qi) ? '🔖' : '';
+    const cls = isEssay ? 'neutral' : ok ? 'ok' : 'err';
+    const tag = isEssay ? '서술형' : ok ? '✓ 정답' : '✗ 오답';
     return `<div class="rv-item">
-      <div class="rv-dot ${isEssay?'':ok?'ok':'err'}"></div>
+      <div class="rv-dot ${cls}"></div>
       <div class="rv-q"><strong>Q${pos+1}.</strong> ${escHtml(shortQ)}</div>
-      <div class="rv-tag ${isEssay?'':ok?'ok':'err'}">${isEssay?'서술형':ok?'✓ 정답':'✗ 오답'}</div>
+      ${bm ? `<span class="rv-bm">${bm}</span>` : ''}
+      <div class="rv-tag ${cls}">${tag}</div>
     </div>`;
   }).join('');
 
-  document.getElementById('btn-retry-wrong').disabled = nonEssay.filter(qi => !results[qi]?.ok).length === 0;
+  // Retry buttons
+  document.getElementById('btn-retry-wrong').disabled = wrongSet.length===0;
+  const bmQis = bookmarks.filter(b=>b.setId===currentSetId).map(b=>b.qi);
+  document.getElementById('btn-retry-bm').disabled = bmQis.length===0;
+
+  renderSavedList(); // refresh saved list with updated history
 }
 
+// ══════════════════════════════════════════════
+//  RETRY
+// ══════════════════════════════════════════════
 function retryWrong() {
-  const wrongIdxs = queueIdx.filter(qi => (questions[qi].type||'multiple')!=='essay' && !results[qi]?.ok);
-  if (!wrongIdxs.length) { toast('🎉 틀린 문제가 없어요!'); return; }
-  queueIdx = wrongIdxs; curPos = 0; results = new Array(questions.length).fill(null);
+  if (!wrongSet.length) { toast('🎉 틀린 문제가 없어요!'); return; }
+  queueIdx = wrongSet; curPos=0; results=new Array(questions.length).fill(null);
+  showPage('pg-quiz'); renderQ();
+}
+function retryBookmarks() {
+  const bmQis = bookmarks.filter(b=>b.setId===currentSetId).map(b=>b.qi);
+  if (!bmQis.length) { toast('🔖 북마크한 문제가 없어요!'); return; }
+  queueIdx=bmQis; curPos=0; results=new Array(questions.length).fill(null);
   showPage('pg-quiz'); renderQ();
 }
 function retryAll() {
-  queueIdx = questions.map((_,i)=>i); curPos = 0; results = new Array(questions.length).fill(null);
+  queueIdx=questions.map((_,i)=>i); curPos=0; results=new Array(questions.length).fill(null);
   showPage('pg-quiz'); renderQ();
 }
 function goSetup() { showPage('pg-setup'); }
 
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
 renderSavedList();
+updateBmFab();
 </script>
 </body>
 </html>
